@@ -114,6 +114,68 @@
   }
   .eligibility strong { color: var(--navy-dark); }
 
+  .share-block {
+    background: var(--blue-tint);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 0 0 20px;
+  }
+  .share-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--navy-dark);
+    margin: 0 0 12px;
+  }
+  .share-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .share-qr {
+    width: 140px;
+    height: 140px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    flex-shrink: 0;
+  }
+  .share-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: 200px;
+  }
+  .share-link {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: underline;
+    word-break: break-all;
+  }
+  .copy-btn {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    background: var(--white);
+    border: 2px solid var(--navy);
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+  }
+  .copy-btn:hover { background: var(--blue-tint-2); }
+  .copy-btn.copied { border-color: var(--green); color: var(--green); }
+  .flyer-link {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: underline;
+  }
+
   .buttons { display: flex; flex-direction: column; gap: 16px; }
 
   .action-btn {
@@ -501,6 +563,19 @@
   </p>
 
   <div class="buttons" id="buttons"></div>
+
+  <div class="share-block" id="share-block">
+    <p class="share-title">Share this page</p>
+    <div class="share-row">
+      <img class="share-qr" src="data:image/png;base64,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" alt="QR code linking to the Nursing Career Ladder hub page" width="140" height="140">
+      <div class="share-info">
+        <a class="share-link" id="share-link" href="#"></a>
+        <button type="button" class="copy-btn" id="copy-link-btn">Copy link</button>
+        <a class="flyer-link" href="./Nursing_Career_Ladder_General_Flyer.pdf">Download the flyer (PDF)</a>
+      </div>
+    </div>
+  </div>
+
   <div id="scheduled-sessions"></div>
 
   <nav class="page-nav" aria-label="Page sections">
@@ -703,8 +778,17 @@
 
 <script>
   // ================= Config =================
-  const IN_PERSON_URL = "https://forms.gle/PLACEHOLDER";
-  const PREFILL_PARAM = ""; // e.g. "facility" — set to empty string for no prefill
+  const IN_PERSON_URL = "https://www.surveymonkey.com/r/PLACEHOLDER";
+  const PREFILL_PARAM = ""; // SurveyMonkey has no prefill support — the form has its own
+                            // facility dropdown, so this stays empty. e.g. "facility" for a
+                            // provider that does support prefill via query param.
+
+  const PAGE_URL = "https://jkhan626.github.io/career-ladder/"; // single source of truth for
+                                                                 // the share link/copy button;
+                                                                 // the QR image is a separate
+                                                                 // build-time asset (see README)
+                                                                 // and must be regenerated to
+                                                                 // match if this ever changes.
 
   const BH_WEBEX_URL = "https://hhc.webex.com/webappng/sites/hhc/webinar/webinarSeries/register/7854dd4dedce47ea9002685d17f11119";
   const MEDSURG_WEBEX_URL = "https://hhc.webex.com/webappng/sites/hhc/webinar/webinarSeries/register/0f23be5c70e54b798955216295ed7de4";
@@ -845,6 +929,45 @@
   `;
   document.getElementById('buttons').innerHTML = buttonsHtml;
   document.getElementById('scheduled-sessions').innerHTML = renderScheduledSessionsList();
+
+  // ================= Share this page =================
+  const shareLink = document.getElementById('share-link');
+  shareLink.href = PAGE_URL;
+  shareLink.textContent = PAGE_URL;
+
+  document.getElementById('copy-link-btn').addEventListener('click', () => {
+    const btn = document.getElementById('copy-link-btn');
+    const showCopied = () => {
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1800);
+    };
+    const fallbackCopy = () => {
+      const ta = document.createElement('textarea');
+      ta.value = PAGE_URL;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showCopied();
+      } catch (e) {
+        // Selection remains for the user to copy manually (Ctrl/Cmd+C).
+      }
+      document.body.removeChild(ta);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(PAGE_URL).then(showCopied).catch(fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  });
 
   // Buttons used inside quiz results (same slot logic, compact)
   function registerButtonsHtml() {
