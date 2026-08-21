@@ -816,22 +816,28 @@
   window.addEventListener('resize', syncDetailsOpen);
 
   // ================= Sticky register pill =================
+  // Hides whenever ANY register-button group (.buttons) is in the viewport —
+  // the top #buttons group, or the register buttons inside a quiz result.
   const stickyPill = document.getElementById('sticky-pill');
-  const buttonsEl = document.getElementById('buttons');
+  const visibleRegisterGroups = new Set();
+  let registerObserver = null;
   if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
+    registerObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          stickyPill.classList.remove('visible');
-        } else if (entry.boundingClientRect.top < 0) {
-          stickyPill.classList.add('visible');
+          visibleRegisterGroups.add(entry.target);
         } else {
-          stickyPill.classList.remove('visible');
+          visibleRegisterGroups.delete(entry.target);
         }
       });
+      stickyPill.classList.toggle('visible', visibleRegisterGroups.size === 0);
     }, { threshold: 0 });
-    observer.observe(buttonsEl);
   }
+  function observeRegisterGroups() {
+    if (!registerObserver) return;
+    document.querySelectorAll('.buttons').forEach(el => registerObserver.observe(el));
+  }
+  observeRegisterGroups();
 
   // ================= Quiz =================
   const QUIZ_STEPS = [
@@ -1029,6 +1035,7 @@
       ${registerButtonsHtml()}
       <a href="#quiz" class="start-over" id="quiz-start-over">Start over</a>
     `;
+    observeRegisterGroups(); // the quiz-result register buttons need to be watched too
 
     document.getElementById('quiz-start-over').addEventListener('click', (e) => {
       e.preventDefault();
