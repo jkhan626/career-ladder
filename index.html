@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nursing Career Ladder — NYC Health + Hospitals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1F3A7A;
+    --navy-dark: #16295c;
+    --orange: #F7941D;
+    --blue-tint: #EAF2FC;
+    --blue-tint-2: #DCEBFB;
+    --text: #1A1F2B;
+    --text-muted: #4B5568;
+    --white: #FFFFFF;
+    --focus: #0B5FFF;
+    --red: #A62A22;
+    --red-tint: #FBEAE8;
+    --red-border: #E3B5AF;
+    --green: #1B6B41;
+    --green-tint: #E7F4EC;
+    --green-border: #A9D6BB;
+    --amber: #8A5A00;
+    --amber-tint: #FDF3DF;
+    --amber-border: #EFCE8C;
+    --border: #D8E1F0;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  a { color: inherit; }
+
+  /* Skip link */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--navy);
+    color: var(--white);
+    padding: 12px 18px;
+    z-index: 1000;
+    border-radius: 0 0 8px 0;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    left: 0;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .top-bar { height: 6px; background: var(--orange); }
+
+  header {
+    padding: 28px 20px 24px;
+    background: var(--white);
+  }
+
+  .org-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin: 0 0 12px;
+  }
+
+  h1 {
+    font-size: clamp(28px, 7vw, 40px);
+    font-weight: 800;
+    color: var(--navy);
+    margin: 0 0 10px;
+    line-height: 1.15;
+  }
+
+  .subhead {
+    font-size: clamp(17px, 4.2vw, 20px);
+    font-weight: 500;
+    color: var(--text);
+    margin: 0;
+  }
+
+  main { padding: 0 20px 40px; max-width: 720px; margin: 0 auto; }
+
+  .eligibility {
+    background: var(--blue-tint);
+    border-left: 4px solid var(--navy);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 24px 0 28px;
+    font-size: 15px;
+  }
+  .eligibility strong { color: var(--navy-dark); }
+
+  .buttons { display: flex; flex-direction: column; gap: 16px; }
+
+  .action-btn {
+    display: block;
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 16px 20px;
+    min-height: 56px;
+    background: var(--navy);
+    color: var(--white);
+    border: 2px solid var(--navy);
+    transition: background 0.15s ease, transform 0.05s ease;
+  }
+  .action-btn:hover { background: var(--navy-dark); border-color: var(--navy-dark); }
+  .action-btn:active { transform: scale(0.99); }
+  .action-btn .btn-title { display: block; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .action-btn .btn-sub { display: block; font-size: 14px; font-weight: 400; color: var(--blue-tint-2); }
+  .action-btn.secondary { background: var(--white); color: var(--navy); border: 2px solid var(--navy); }
+  .action-btn.secondary .btn-sub { color: var(--text-muted); }
+  .action-btn.secondary:hover { background: var(--blue-tint); }
+
+  /* Sticky register pill */
+  .sticky-pill {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translate(-50%, 120px);
+    background: var(--orange);
+    color: var(--navy-dark);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 13px 26px;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+    text-decoration: none;
+    z-index: 500;
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .sticky-pill.visible {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* In-page nav */
+  .page-nav {
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 20px;
+  }
+  .page-nav ul {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+  }
+  .page-nav a {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .page-nav a:hover,
+  .page-nav a:focus-visible {
+    background: var(--blue-tint);
+  }
+
+  /* Sections */
+  .section {
+    border: none;
+    border-top: 1px solid var(--border);
+    padding: 20px 0;
+    scroll-margin-top: 96px;
+  }
+  .section summary {
+    font-size: clamp(19px, 4.6vw, 22px);
+    font-weight: 700;
+    color: var(--navy);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0;
+  }
+  .section summary::-webkit-details-marker { display: none; }
+  .section summary .chevron {
+    font-size: 14px;
+    color: var(--orange);
+    transition: transform 0.15s ease;
+    flex-shrink: 0;
+    margin-left: 10px;
+  }
+  .section[open] summary .chevron { transform: rotate(90deg); }
+  .section-body { padding-top: 14px; font-size: 15.5px; }
+  .section-body p { margin: 0 0 12px; }
+  .section-body ul, .section-body ol { margin: 0 0 12px; padding-left: 22px; }
+  .section-body li { margin-bottom: 6px; }
+  .section-body h3 { font-size: 16px; color: var(--navy-dark); margin: 18px 0 8px; }
+
+  @media (min-width: 768px) {
+    .section summary { cursor: default; pointer-events: none; }
+    .section summary .chevron { display: none; }
+  }
+
+  .note-box {
+    background: var(--blue-tint);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin-top: 10px;
+  }
+
+  /* Schools table (desktop) / cards (mobile) */
+  .schools-table-wrap { overflow-x: auto; }
+  table.schools {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+  }
+  table.schools th, table.schools td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  table.schools th {
+    background: var(--blue-tint);
+    color: var(--navy-dark);
+    font-weight: 700;
+  }
+  .school-cards { display: none; }
+  .school-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .school-card .school-name { font-weight: 700; color: var(--navy-dark); font-size: 16px; margin-bottom: 6px; }
+  .school-card dl { margin: 0; }
+  .school-card dt { font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); margin-top: 6px; }
+  .school-card dd { margin: 0; font-size: 14.5px; }
+
+  @media (max-width: 640px) {
+    .schools-table-wrap { display: none; }
+    .school-cards { display: block; }
+  }
+
+  /* Prerequisites checklist */
+  .checklist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  @media (min-width: 560px) {
+    .checklist { grid-template-columns: 1fr 1fr; }
+  }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 14.5px;
+    margin-bottom: 0;
+  }
+  .checklist .box {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--navy);
+    border-radius: 4px;
+    margin-top: 2px;
+  }
+
+  /* Timeline stepper */
+  .stepper { list-style: none; margin: 0; padding: 0; }
+  .stepper li {
+    position: relative;
+    padding: 0 0 22px 30px;
+    border-left: 2px solid var(--blue-tint-2);
+    margin-bottom: 0;
+  }
+  .stepper li:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
+  .stepper li::before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--orange);
+    border: 2px solid var(--white);
+  }
+  .stepper .step-when { font-weight: 700; color: var(--navy-dark); font-size: 14.5px; display: block; }
+  .stepper .step-what { font-size: 14.5px; color: var(--text); }
+
+  /* Red callout */
+  .callout-red {
+    background: var(--red-tint);
+    border: 1px solid var(--red-border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 14px;
+  }
+  .callout-red h3 { color: var(--red); margin: 0 0 8px; font-size: 15px; }
+  .callout-red ul { margin: 0; padding-left: 20px; }
+  .callout-red li { color: var(--red); font-size: 14.5px; }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+  }
+  .faq-item summary {
+    font-weight: 600;
+    font-size: 15.5px;
+    color: var(--navy-dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary .plus { color: var(--orange); font-weight: 800; flex-shrink: 0; }
+  .faq-item[open] summary .plus::before { content: "−"; }
+  .faq-item summary .plus::before { content: "+"; }
+  .faq-item p { margin: 10px 0 0; font-size: 14.5px; color: var(--text); }
+
+  /* Quiz */
+  .quiz-disclaimer { font-size: 13.5px; color: var(--text-muted); font-style: italic; }
+  #quiz-container {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 12px;
+    background: var(--blue-tint);
+  }
+  #quiz-progress {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px;
+  }
+  .quiz-step h3 {
+    font-size: 17px;
+    color: var(--navy-dark);
+    margin: 0 0 12px;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 4px; }
+  .quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .quiz-option:has(input:checked) {
+    border-color: var(--navy);
+    background: var(--blue-tint-2);
+  }
+  .quiz-option input { flex-shrink: 0; width: 18px; height: 18px; }
+  .quiz-nav { display: flex; justify-content: space-between; margin-top: 18px; gap: 10px; }
+  .quiz-btn {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 12px 20px;
+    min-height: 44px;
+    cursor: pointer;
+    border: 2px solid var(--navy);
+    background: var(--navy);
+    color: var(--white);
+  }
+  .quiz-btn.ghost { background: var(--white); color: var(--navy); }
+  .quiz-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .quiz-result {
+    border-radius: 10px;
+    padding: 18px;
+    margin-top: 10px;
+  }
+  .quiz-result.tier-strong { background: var(--green-tint); border: 1px solid var(--green-border); }
+  .quiz-result.tier-possible { background: var(--amber-tint); border: 1px solid var(--amber-border); }
+  .quiz-result.tier-not-yet { background: var(--red-tint); border: 1px solid var(--red-border); }
+  .quiz-result h3 { margin: 0 0 8px; font-size: 19px; }
+  .tier-strong h3 { color: var(--green); }
+  .tier-possible h3 { color: var(--amber); }
+  .tier-not-yet h3 { color: var(--red); }
+  .quiz-result ul { margin: 10px 0; padding-left: 20px; }
+  .quiz-result .buttons { margin-top: 16px; }
+  .start-over {
+    display: inline-block;
+    margin-top: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    text-decoration: underline;
+  }
+
+  footer {
+    padding: 28px 20px 40px;
+    background: var(--blue-tint);
+    border-top: 3px solid var(--orange);
+  }
+  footer .contact { font-size: 14px; margin: 0 0 8px; max-width: 720px; margin-left: auto; margin-right: auto; }
+  footer .contact strong { color: var(--navy-dark); }
+  footer .disclaimer { font-size: 13px; color: var(--text-muted); margin: 0 0 8px; max-width: 720px; margin-left: auto; margin-right: auto; }
+  footer .updated { font-size: 12.5px; color: var(--text-muted); margin: 0; max-width: 720px; margin-left: auto; margin-right: auto; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="top-bar"></div>
+
+<header>
+  <p class="org-name">NYC Health + Hospitals</p>
+  <h1>Nursing Career Ladder</h1>
+  <p class="subhead">Become an RN. H+H pays your CUNY tuition.</p>
+</header>
+
+<main id="main">
+  <p class="eligibility">
+    For full-time PCAs, PCTs, BHAs, and PSHTs with <strong>1+ year of service</strong>.
+    Attending a live info session is required to receive the application.
+    Applications close <strong>December 31, 2026</strong>.
+  </p>
+
+  <div class="buttons" id="buttons"></div>
+
+  <nav class="page-nav" aria-label="Page sections">
+    <ul>
+      <li><a href="#what-it-is">What it is</a></li>
+      <li><a href="#eligibility-full">Eligibility</a></li>
+      <li><a href="#whats-covered">What's covered</a></li>
+      <li><a href="#schools">Schools</a></li>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#how-to-apply">How to apply</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#commitment">Commitment</a></li>
+      <li><a href="#strong-candidate">Strong candidate</a></li>
+      <li><a href="#do-now">Do now</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#quiz">Am I a good fit?</a></li>
+    </ul>
+  </nav>
+
+  <details class="section" id="what-it-is" open>
+    <summary>What it is <span class="chevron">&#9656;</span></summary>
+    <div class="section-body">
+      <p>The Nursing Career Ladder pays for NYC Health + Hospitals support staff to become Registered Nurses. NYC H+H pays your tuition and fees directly to CUNY and reimburses your related costs, so you can earn an RN without taking on the financial burden yourself. You keep your full-time H+H job and your paycheck the entire time you are in school.</p>
+      <p>Two tracks, separate application cycles:</p>
+      <ul>
+        <li>Behavioral Health Nursing Career Ladder (Cohort 3), for staff in behavioral health settings</li>
+        <li>Med-Surg Nursing Career Ladder (Cohort 2), for staff in med-surg settings</li>
+      </ul>
+      <p>Apply to the one that matches where you work now. <strong>Apply to one program only.</strong> There are plenty of seats in each program; applying twice does not improve your chances.</p>
+    </div>
+  </details>
+
+  <details class="section" id="eligibility-full" open>
+    <summary>Eligibility <span class="chevron">&#9656;</span></summary>
+    <div class="section-body">
+      <ul>
+        <li>Full-time PCA, PCT, PSHT, or BHA (PSHT and BHA apply to the behavioral health track)</li>
+        <li>Minimum 1 year of tenure at NYC H+H</li>
+        <li>Good standing, confirmed through an HR and Labor review</li>
+        <li>Committed to working as an RN at NYC H+H after you are licensed</li>
+      </ul>
+      <p><strong>Ineligible:</strong> currently enrolled in, or previously enrolled in, a nursing program outside CUNY.</p>
+      <p><strong>Exception (fast track):</strong> currently enrolled in a CUNY Associate Degree (AAS) nursing program — tell us now; we may be able to start covering tuition right away.</p>
+    </div>
+  </details>
+
+  <details class="section" id="whats-covered" open>
+    <summary>What's covered <span class="chevron">&#9656;</span></summary>
+    <div class="section-body">
+      <p><strong>Paid directly to CUNY:</strong> prerequisite course tuition and nursing degree tuition, up to $22,500 per participant.</p>
+      <p><strong>Reimbursed with receipts:</strong> NCLEX exam and licensing fees; books and uniforms; background checks; entrance exam fees (TEAS, HESI, or NLN); CUNY application fee.</p>
+    </div>
+  </details>
+
+  <details class="section" id="schools" open>
+    <summary>Schools <span class="chevron">&#9656;</span></summary>
+    <div class="section-body">
+      <p>All 9 CUNY AAS Nursing programs:</p>
+      <div class="schools-table-wrap">
+        <table class="schools">
+          <thead>
+            <tr><th>School</th><th>Entrance exam</th><th>Schedule</th><th>Start terms</th></tr>
+          </thead>
+          <tbody id="schools-tbody"></tbody>
+        </table>
+      </div>
+      <div class="school-cards" id="schools-cards"></div>
+      <div class="note-box">
+        Pick your school <strong>before</strong> booking an entrance exam — the wrong exam does not transfer. Some campuses run one admission cycle a year; missing a deadline can cost twelve months. We help match your transcript, grades, and schedule to the right campus.
+      </div>
+    </div>
+  </details>
+
+  <details class="section" id="prerequisites" open>
+    <summary>Prerequisites <span class="chevron">&#9656;</span></summary>
+    <div class="section-body">
+      <p>10 prerequisite courses, required at every campus:</p>
+      <ul class="checklist" id="prereq-checklist"></ul>
+      <div class="note-box">
+        Rules: A's and B's (admission is ranked on these grades). Shelf life: A&amp;P ~7 yrs, Microbiology 5–10 yrs, Chemistry ~10 yrs, depending on campus. Regionally accredited colleges only — online course mills, bootcamps, certificate programs do not transfer.
+      </div>
+    </div>
+  </details>
+
+  <details class="section" id="how-to-apply" open>
+    <summary>How to apply <span class="chevron">&#9656;</span></summary>
+    <div class="section-body">
+      <p>The application is not public. You get it only by attending a live info session (in person at your facility, or virtual on Webex). After each session we pull attendance and email the application to everyone who attended.</p>
+      <ol>
+        <li>Register for an info session (buttons above).</li>
+        <li>Attend the live session (virtual = 90 min on Webex incl. Q&amp;A; in-person = 45 min).</li>
+        <li>Receive the application by email within a few days.</li>
+        <li>Submit by December 31, 2026 with transcripts and letter of recommendation uploaded inside it.</li>
+      </ol>
+      <p>Virtual sessions — Behavioral Health: Thu Sep 17 6:00 PM &middot; Mon Oct 19 12:00 PM &middot; Tue Nov 17 2:00 PM. Med-Surg: Wed Sep 16 1:00 PM &middot; Wed Oct 21 6:00 PM &middot; Wed Nov 18 7:00 PM. November is the last session; there is no December session.</p>
+    </div>
+  </details>
+
+  <details class="section" id="timeline" open>
+    <summary>Timeline <span class="chevron">&#9656;</span></summary>
+    <div class="section-body">
+      <ul class="stepper">
+        <li><span class="step-when">Sept – Dec 31, 2026</span><span class="step-what">Attend a session and apply</span></li>
+        <li><span class="step-when">Feb 2027</span><span class="step-what">Selection notifications</span></li>
+        <li><span class="step-when">Mar 2027</span><span class="step-what">Paperwork, agreements, CUNY application</span></li>
+        <li><span class="step-when">Jun 2027</span><span class="step-what">In-person cohort kickoff</span></li>
+        <li><span class="step-when">Fall 2027</span><span class="step-what">Remaining prerequisites</span></li>
+        <li><span class="step-when">Spring 2028</span><span class="step-what">Start nursing school</span></li>
+      </ul>
+      <p class="note-box">Application to RN license takes about 3–4 years.</p>
+    </div>
+  </details>
+
+  <details class="section" id="commitment" open>
+    <summary>Commitment <span class="chevron">&#9656;</span></summary>
+    <div class="section-body">
+      <p>What you are committing to:</p>
+      <ul>
+        <li>Stay full time at NYC H+H throughout (no part time / per diem).</li>
+        <li>Classes are primarily in person; you adjust your work schedule around school (we help).</li>
+        <li>After licensure: 3 years as an RN at NYC H+H in your track. Leave early &rarr; repayment tiers (full / two-thirds / one-third by time served).</li>
+        <li>If you do not finish nursing school you still owe the service obligation in your current title. Failed courses can be retaken at your own expense if the school allows.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="section" id="strong-candidate" open>
+    <summary>Strong candidate <span class="chevron">&#9656;</span></summary>
+    <div class="section-body">
+      <p>What makes a strong candidate:</p>
+      <ul>
+        <li>At least 5 of the 10 prerequisites done (zero done cannot make this cohort's timeline).</li>
+        <li>Mostly A's and B's (GPA below 3.5 is a long shot).</li>
+        <li>Currently taking classes — one of the strongest signals.</li>
+        <li>Transcript matches the application.</li>
+        <li>A supervisor who supports you, in writing and in practice.</li>
+        <li>A clear, realistic plan for working full time and going to school (one short essay).</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="section" id="do-now" open>
+    <summary>Do now <span class="chevron">&#9656;</span></summary>
+    <div class="section-body">
+      <p>Before the session:</p>
+      <ol>
+        <li>Order official transcripts from every college attended, sent to your email, as PDFs (photos/screenshots rejected).</li>
+        <li>Merge all transcripts into one PDF.</li>
+        <li>Count your prerequisites, grades, and science-course ages.</li>
+        <li>Talk to your supervisor now — letter of recommendation (give weeks, not days) and schedule changes as soon as Fall 2027.</li>
+        <li>Not in school? Register for a prerequisite this semester.</li>
+        <li>Register with the email you actually check — the application goes to that exact address.</li>
+      </ol>
+      <div class="callout-red">
+        <h3>What not to do</h3>
+        <ul>
+          <li>Don't email documents — everything uploads inside the application.</li>
+          <li>No screenshots or phone photos — PDFs only.</li>
+          <li>Don't order transcripts to Jamal's email.</li>
+          <li>Don't skip the supervisor letter.</li>
+          <li>Don't apply to both programs.</li>
+          <li>Don't submit late — closes December 31, 2026.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <details class="section" id="faq" open>
+    <summary>FAQ <span class="chevron">&#9656;</span></summary>
+    <div class="section-body" id="faq-body"></div>
+  </details>
+
+  <section id="quiz" class="section" style="border-top: 1px solid var(--border); padding: 20px 0;">
+    <h2 style="font-size: clamp(19px, 4.6vw, 22px); font-weight: 700; color: var(--navy); margin: 0 0 6px;">Am I a good fit?</h2>
+    <p class="quiz-disclaimer">This is a self-check only; it is not part of the application and nothing is saved.</p>
+    <div id="quiz-container">
+      <div id="quiz-progress"></div>
+      <div id="quiz-step-host"></div>
+      <div class="quiz-nav" id="quiz-nav">
+        <button type="button" class="quiz-btn ghost" id="quiz-back">Back</button>
+        <button type="button" class="quiz-btn" id="quiz-next">Next</button>
+      </div>
+      <div id="quiz-result" hidden></div>
+    </div>
+  </section>
+</main>
+
+<a href="#buttons" class="sticky-pill" id="sticky-pill">Register &rarr;</a>
+
+<footer>
+  <p class="contact">
+    Questions? <strong>Jamal Khan</strong>, Director, Behavioral Health Workforce Programs
+    &middot; khanj6@nychhc.org &middot; 929-736-3655
+  </p>
+  <p class="disclaimer">
+    Not an H+H employee? This program is for current NYC Health + Hospitals staff.
+  </p>
+  <p class="updated">Last updated: August 2026</p>
+</footer>
+
+<script>
+  // ================= Config =================
+  const IN_PERSON_URL = "https://forms.gle/PLACEHOLDER";
+  const PREFILL_PARAM = ""; // e.g. "facility" — set to empty string for no prefill
+
+  const BH_WEBEX_URL = "https://hhc.webex.com/webappng/sites/hhc/webinar/webinarSeries/register/7854dd4dedce47ea9002685d17f11119";
+  const MEDSURG_WEBEX_URL = "https://hhc.webex.com/webappng/sites/hhc/webinar/webinarSeries/register/0f23be5c70e54b798955216295ed7de4";
+
+  const FACILITY_MAP = {
+    bellevue: "Bellevue",
+    kings: "Kings County",
+    elmhurst: "Elmhurst",
+    woodhull: "Woodhull",
+    jacobi: "Jacobi",
+    ncb: "North Central Bronx",
+    lincoln: "Lincoln",
+    sbh: "South Brooklyn Health",
+    metropolitan: "Metropolitan"
+  };
+
+  function getFacility() {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('f');
+    if (slug && FACILITY_MAP[slug]) return FACILITY_MAP[slug];
+    return null;
+  }
+
+  function buildInPersonUrl(facilityDisplayName) {
+    if (!facilityDisplayName || !PREFILL_PARAM) return IN_PERSON_URL;
+    const separator = IN_PERSON_URL.includes('?') ? '&' : '?';
+    return IN_PERSON_URL + separator + PREFILL_PARAM + '=' + encodeURIComponent(facilityDisplayName);
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  const facility = getFacility();
+  const inPersonLabel = facility
+    ? `In-person info session at ${escapeHtml(facility)}`
+    : "In-person info session at your hospital";
+  const inPersonUrl = buildInPersonUrl(facility);
+
+  const buttonsHtml = `
+    <a class="action-btn" href="${inPersonUrl}">
+      <span class="btn-title">${inPersonLabel}</span>
+      <span class="btn-sub">Register for the session at your hospital</span>
+    </a>
+    <a class="action-btn secondary" href="${BH_WEBEX_URL}">
+      <span class="btn-title">Virtual — Behavioral Health (Webex)</span>
+      <span class="btn-sub">Thu 9/17 6pm &middot; Mon 10/19 12pm &middot; Tue 11/17 2pm</span>
+    </a>
+    <a class="action-btn secondary" href="${MEDSURG_WEBEX_URL}">
+      <span class="btn-title">Virtual — Med-Surg (Webex)</span>
+      <span class="btn-sub">Wed 9/16 1pm &middot; Wed 10/21 6pm &middot; Wed 11/18 7pm</span>
+    </a>
+  `;
+  document.getElementById('buttons').innerHTML = buttonsHtml;
+
+  // Buttons used inside quiz results (same links, compact)
+  function registerButtonsHtml() {
+    return `
+      <div class="buttons">
+        <a class="action-btn" href="${inPersonUrl}">
+          <span class="btn-title">${inPersonLabel}</span>
+          <span class="btn-sub">Register for the session at your hospital</span>
+        </a>
+        <a class="action-btn secondary" href="${BH_WEBEX_URL}">
+          <span class="btn-title">Virtual — Behavioral Health (Webex)</span>
+          <span class="btn-sub">Thu 9/17 6pm &middot; Mon 10/19 12pm &middot; Tue 11/17 2pm</span>
+        </a>
+        <a class="action-btn secondary" href="${MEDSURG_WEBEX_URL}">
+          <span class="btn-title">Virtual — Med-Surg (Webex)</span>
+          <span class="btn-sub">Wed 9/16 1pm &middot; Wed 10/21 6pm &middot; Wed 11/18 7pm</span>
+        </a>
+      </div>
+    `;
+  }
+
+  // ================= Schools =================
+  const SCHOOLS = [
+    { name: "BMCC", exam: "HESI A2", schedule: "Evening/weekend option", terms: "Fall & Spring" },
+    { name: "Bronx Community College", exam: "TEAS", schedule: "Day", terms: "Fall & Spring" },
+    { name: "Hostos", exam: "TEAS", schedule: "Evening/weekend option", terms: "Fall & Spring" },
+    { name: "Kingsborough", exam: "TEAS", schedule: "Evening/weekend option", terms: "Fall & Spring" },
+    { name: "LaGuardia", exam: "TEAS", schedule: "Day", terms: "Fall & Spring" },
+    { name: "Medgar Evers", exam: "NLN PAX", schedule: "Day", terms: "Fall & Spring" },
+    { name: "City Tech", exam: "TEAS", schedule: "Day", terms: "Fall & Spring" },
+    { name: "Queensborough", exam: "NLN NEX", schedule: "Evening/weekend option", terms: "Fall & Spring" },
+    { name: "College of Staten Island", exam: "(confirm)", schedule: "Day", terms: "Fall only" }
+  ];
+
+  document.getElementById('schools-tbody').innerHTML = SCHOOLS.map(s => `
+    <tr><td>${s.name}</td><td>${s.exam}</td><td>${s.schedule}</td><td>${s.terms}</td></tr>
+  `).join('');
+
+  document.getElementById('schools-cards').innerHTML = SCHOOLS.map(s => `
+    <div class="school-card">
+      <div class="school-name">${s.name}</div>
+      <dl>
+        <dt>Entrance exam</dt><dd>${s.exam}</dd>
+        <dt>Schedule</dt><dd>${s.schedule}</dd>
+        <dt>Start terms</dt><dd>${s.terms}</dd>
+      </dl>
+    </div>
+  `).join('');
+
+  // ================= Prerequisites =================
+  const PREREQS = [
+    "English Composition I", "English Composition II", "Statistics", "Psychology 101",
+    "Developmental Psychology", "Anatomy & Physiology I", "Anatomy & Physiology II",
+    "Microbiology", "Chemistry", "Community Health"
+  ];
+  document.getElementById('prereq-checklist').innerHTML = PREREQS.map((p, i) => `
+    <li><span class="box" aria-hidden="true"></span>${i + 1}. ${p}</li>
+  `).join('');
+
+  // ================= FAQ =================
+  const FAQS = [
+    ["Can I apply to both tracks?", "No. Apply only to the track that matches where you work now — Behavioral Health or Med-Surg. There are plenty of seats in each program, so applying twice does not improve your chances, and it slows down review for everyone."],
+    ["I'm already in a nursing program — am I eligible?", "If it's outside CUNY, no — that makes you ineligible for this program. If you're currently enrolled in a CUNY Associate Degree (AAS) nursing program, that's the one exception: it's a fast track. Tell us now — we may be able to start covering your tuition right away."],
+    ["Do I need all 10 prerequisites before applying?", "No, but the more you have done, the stronger your application. At least 5 of the 10 is what makes a strong candidate; zero done means you cannot make this cohort's timeline — start a prerequisite this semester."],
+    ["Which school should I choose?", "Pick your school before booking an entrance exam — the wrong exam does not transfer between schools. We help match your transcript, grades, and schedule to the right of the 9 CUNY AAS Nursing campuses."],
+    ["Which entrance exam do I take?", "It depends on your school: BMCC uses HESI A2; Bronx CC, Hostos, Kingsborough, LaGuardia, and City Tech use TEAS; Medgar Evers uses NLN PAX; Queensborough uses NLN NEX. Confirm with College of Staten Island directly. Choose your school first, then the exam."],
+    ["Can I go part-time at work?", "No. You must stay full time at NYC H+H throughout the program — no part time or per diem."],
+    ["What if I don't finish?", "If you do not finish nursing school, you still owe the service obligation in your current title. Failed courses can be retaken at your own expense if the school allows."],
+    ["What do I owe after I'm licensed?", "You commit to 3 years as an RN at NYC H+H in your track. If you leave early, repayment tiers apply — full, two-thirds, or one-third, depending on time served."],
+    ["How do I get the application?", "The application is not public — you get it only by attending a live info session, in person at your facility or virtual on Webex. After each session we pull attendance and email the application to everyone who attended, usually within a few days."],
+    ["What if I miss the November session?", "November is the last session — there is no December session. Register for one of the remaining sessions before then; applications close December 31, 2026 regardless."],
+    ["Where do I send my transcripts?", "Nowhere by email — don't send documents to Jamal or anyone else directly. Order official transcripts to your own email as PDFs, merge them into one PDF, and upload that PDF inside the application itself."]
+  ];
+  document.getElementById('faq-body').innerHTML = FAQS.map(([q, a]) => `
+    <details class="faq-item">
+      <summary>${q}<span class="plus"></span></summary>
+      <p>${a}</p>
+    </details>
+  `).join('');
+
+  // ================= Details open/close sync (mobile collapsible, desktop expanded) =================
+  function syncDetailsOpen() {
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+    document.querySelectorAll('details.section').forEach(d => {
+      if (isDesktop) d.open = true;
+    });
+  }
+  syncDetailsOpen();
+  window.addEventListener('resize', syncDetailsOpen);
+
+  // ================= Sticky register pill =================
+  const stickyPill = document.getElementById('sticky-pill');
+  const buttonsEl = document.getElementById('buttons');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          stickyPill.classList.remove('visible');
+        } else if (entry.boundingClientRect.top < 0) {
+          stickyPill.classList.add('visible');
+        } else {
+          stickyPill.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0 });
+    observer.observe(buttonsEl);
+  }
+
+  // ================= Quiz =================
+  const QUIZ_STEPS = [
+    {
+      key: 'title',
+      question: "What's your current title?",
+      options: ['PCA', 'PCT', 'BHA', 'PSHT', 'Other']
+    },
+    {
+      key: 'fulltime',
+      question: 'Have you worked full-time at H+H for 1+ year?',
+      options: ['Yes', 'No']
+    },
+    {
+      key: 'outsideCuny',
+      question: 'Have you ever been enrolled in a nursing program outside CUNY?',
+      options: ['Yes', 'No']
+    },
+    {
+      key: 'cunyAas',
+      question: 'Are you currently enrolled in a CUNY Associate Degree (AAS) nursing program?',
+      options: ['Yes', 'No']
+    },
+    {
+      key: 'prereqCount',
+      question: 'How many of the 10 prerequisites have you completed with an A or B?',
+      options: ['0', '1–4', '5+']
+    },
+    {
+      key: 'grades',
+      question: 'Are your grades mostly A\'s and B\'s?',
+      options: ['Yes', 'Mixed', 'No']
+    },
+    {
+      key: 'currentClasses',
+      question: 'Are you currently taking college classes?',
+      options: ['Yes', 'No']
+    },
+    {
+      key: 'commitment',
+      question: 'Can you commit to full-time work, mostly in-person classes, and 3 years as an H+H RN after licensure?',
+      options: ['Yes', 'Not sure', 'No']
+    }
+  ];
+
+  let quizIndex = 0;
+  const quizAnswers = {};
+
+  const quizStepHost = document.getElementById('quiz-step-host');
+  const quizProgress = document.getElementById('quiz-progress');
+  const quizNav = document.getElementById('quiz-nav');
+  const quizBackBtn = document.getElementById('quiz-back');
+  const quizNextBtn = document.getElementById('quiz-next');
+  const quizResultEl = document.getElementById('quiz-result');
+
+  function renderQuizStep() {
+    quizResultEl.hidden = true;
+    quizResultEl.innerHTML = '';
+    quizStepHost.hidden = false;
+    quizNav.hidden = false;
+
+    const step = QUIZ_STEPS[quizIndex];
+    quizProgress.textContent = `Question ${quizIndex + 1} of ${QUIZ_STEPS.length}`;
+
+    const current = quizAnswers[step.key];
+    quizStepHost.innerHTML = `
+      <div class="quiz-step">
+        <h3>${step.question}</h3>
+        <div class="quiz-options" role="radiogroup" aria-label="${step.question}">
+          ${step.options.map((opt, i) => `
+            <label class="quiz-option">
+              <input type="radio" name="${step.key}" value="${opt}" ${current === opt ? 'checked' : ''}>
+              ${opt}
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    quizStepHost.querySelectorAll('input[type="radio"]').forEach(input => {
+      input.addEventListener('change', () => {
+        quizAnswers[step.key] = input.value;
+        quizNextBtn.disabled = false;
+      });
+    });
+
+    quizBackBtn.disabled = quizIndex === 0;
+    quizNextBtn.textContent = quizIndex === QUIZ_STEPS.length - 1 ? 'See my result' : 'Next';
+    quizNextBtn.disabled = !quizAnswers[step.key];
+  }
+
+  quizBackBtn.addEventListener('click', () => {
+    if (quizIndex > 0) {
+      quizIndex--;
+      renderQuizStep();
+    }
+  });
+
+  quizNextBtn.addEventListener('click', () => {
+    const step = QUIZ_STEPS[quizIndex];
+    if (!quizAnswers[step.key]) return;
+    if (quizIndex < QUIZ_STEPS.length - 1) {
+      quizIndex++;
+      renderQuizStep();
+    } else {
+      showQuizResult();
+    }
+  });
+
+  function showQuizResult() {
+    quizStepHost.hidden = true;
+    quizNav.hidden = true;
+    quizResultEl.hidden = false;
+
+    const a = quizAnswers;
+    let tier, title, body = [];
+
+    // Priority 1: fast track overrides everything
+    if (a.cunyAas === 'Yes') {
+      tier = 'strong';
+      title = 'Fast track — contact Jamal now';
+      body.push("You're currently enrolled in a CUNY AAS nursing program, which is the one exception to this program's usual eligibility rules. Contact Jamal directly — we may be able to start covering your tuition right away, outside the usual info-session cycle.");
+    } else if (a.title === 'Other' || a.fulltime === 'No') {
+      tier = 'not-yet';
+      title = 'Not eligible right now';
+      body.push('This program requires a full-time PCA, PCT, BHA, or PSHT title with at least 1 year of tenure at NYC H+H.');
+      if (a.title === 'Other') body.push("Your title wasn't one of the four covered titles (PCA, PCT, BHA, PSHT).");
+      if (a.fulltime === 'No') body.push("You'll need full-time status and 1+ year of tenure at H+H before you're eligible.");
+    } else if (a.outsideCuny === 'Yes') {
+      tier = 'not-yet';
+      title = 'Not eligible';
+      body.push('Anyone currently enrolled in, or previously enrolled in, a nursing program outside CUNY is not eligible for this program.');
+    } else {
+      // Score
+      let score = 0;
+      const strengthen = [];
+      const path = [];
+
+      if (a.prereqCount === '5+') score += 3;
+      else if (a.prereqCount === '1–4') score += 1;
+      else if (a.prereqCount === '0') {
+        score -= 3;
+        path.push('Cannot make this cohort\'s timeline with zero prerequisites done — start a prerequisite course this semester.');
+      }
+
+      if (a.grades === 'Yes') score += 2;
+      else if (a.grades === 'No') {
+        score -= 2;
+        strengthen.push('Aim for mostly A\'s and B\'s — admission is ranked on prerequisite grades, and GPA below 3.5 is a long shot.');
+      } else if (a.grades === 'Mixed') {
+        strengthen.push('Push your prerequisite grades toward mostly A\'s and B\'s where you can.');
+      }
+
+      if (a.currentClasses === 'Yes') score += 2;
+      else {
+        strengthen.push('Enroll in a prerequisite course this semester — currently taking classes is one of the strongest signals.');
+      }
+
+      if (a.commitment === 'Yes') score += 1;
+      else if (a.commitment === 'Not sure') {
+        strengthen.push('Think through the full commitment: full-time work, mostly in-person classes, and 3 years as an H+H RN after licensure.');
+      } else if (a.commitment === 'No') {
+        path.push('This program requires staying full time, attending mostly in-person classes, and committing to 3 years as an H+H RN after licensure — revisit whether that\'s workable for you right now.');
+      }
+
+      if (score >= 6) {
+        tier = 'strong';
+        title = 'Strong fit — register now';
+        body.push('Your prerequisites, grades, and current momentum line up well with what makes a strong candidate. Register for an info session and start your application.');
+      } else if (score >= 2) {
+        tier = 'possible';
+        title = "Possible fit — here's what to strengthen";
+        body.push('You meet the basic eligibility requirements. A few things would strengthen your application:');
+        body.push({ list: strengthen.length ? strengthen : ['Talk to your supervisor now about a letter of recommendation and any schedule changes.'] });
+      } else {
+        tier = 'not-yet';
+        title = "Not yet — here's your path";
+        body.push('You meet the basic eligibility requirements, but your application would be a long shot in this cohort. Here\'s a path forward:');
+        body.push({ list: (path.length ? path : []).concat(strengthen) });
+      }
+    }
+
+    const bodyHtml = body.map(part => {
+      if (typeof part === 'string') return `<p>${part}</p>`;
+      if (part.list) return `<ul>${part.list.map(li => `<li>${li}</li>`).join('')}</ul>`;
+      return '';
+    }).join('');
+
+    const tierClass = tier === 'strong' ? 'tier-strong' : tier === 'possible' ? 'tier-possible' : 'tier-not-yet';
+
+    quizResultEl.className = `quiz-result ${tierClass}`;
+    quizResultEl.innerHTML = `
+      <h3>${title}</h3>
+      ${bodyHtml}
+      ${registerButtonsHtml()}
+      <a href="#quiz" class="start-over" id="quiz-start-over">Start over</a>
+    `;
+
+    document.getElementById('quiz-start-over').addEventListener('click', (e) => {
+      e.preventDefault();
+      quizIndex = 0;
+      Object.keys(quizAnswers).forEach(k => delete quizAnswers[k]);
+      renderQuizStep();
+      document.getElementById('quiz').scrollIntoView({ block: 'start' });
+    });
+  }
+
+  renderQuizStep();
+</script>
+
+</body>
+</html>
