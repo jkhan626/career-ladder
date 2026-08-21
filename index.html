@@ -859,12 +859,25 @@
 
   // Renders button 1: a scheduled session, a "not yet scheduled" notify card, or the generic fallback.
   function renderInPersonSlot() {
+    const formReady = !/PLACEHOLDER/.test(IN_PERSON_URL);
+    const anyScheduled = Object.values(SESSIONS).some(Boolean);
+
     if (!facilityInfo) {
+      if (formReady && anyScheduled) {
+        return `
+          <a class="action-btn" href="${IN_PERSON_URL}">
+            <span class="btn-title">In-person info session at your hospital</span>
+            <span class="btn-sub">Choose your hospital's session on the registration form</span>
+          </a>
+        `;
+      }
+      const notify = formReady ? `<a class="notify-link" href="${IN_PERSON_URL}">Notify me &rarr;</a>` : '';
       return `
-        <a class="action-btn" href="${IN_PERSON_URL}">
-          <span class="btn-title">In-person info session at your hospital</span>
-          <span class="btn-sub">Register for the session at your hospital</span>
-        </a>
+        <div class="action-btn muted-card">
+          <span class="btn-title">In-person sessions: dates coming soon</span>
+          <span class="btn-sub">We are scheduling in-person sessions at facilities for September&ndash;November. Until yours is posted, register for a virtual Webex session below.</span>
+          ${notify}
+        </div>
       `;
     }
 
@@ -891,7 +904,7 @@
       <div class="action-btn muted-card">
         <span class="btn-title">No in-person session at ${escapeHtml(name)} yet</span>
         <span class="btn-sub">Register for a virtual Webex session below, or ask to be notified when one is scheduled at ${escapeHtml(name)}.</span>
-        <a class="notify-link" href="${notifyUrl}">Notify me &rarr;</a>
+        ${formReady ? `<a class="notify-link" href="${notifyUrl}">Notify me &rarr;</a>` : ''}
       </div>
     `;
   }
