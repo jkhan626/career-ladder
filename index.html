@@ -135,6 +135,41 @@
   .action-btn.secondary .btn-sub { color: var(--text-muted); }
   .action-btn.secondary:hover { background: var(--blue-tint); }
 
+  /* Muted "no session scheduled yet" card (replaces button 1 when SESSIONS[slug] is null) */
+  .action-btn.muted-card {
+    background: var(--white);
+    color: var(--text);
+    border: 2px solid #B9C2D0;
+    cursor: default;
+  }
+  .action-btn.muted-card .btn-sub { color: var(--text-muted); }
+  .notify-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: 700;
+    color: var(--navy);
+    text-decoration: underline;
+  }
+  .notify-link:hover { color: var(--navy-dark); }
+
+  /* Scheduled in-person sessions mini-list */
+  .scheduled-sessions {
+    margin: 4px 0 0;
+    padding: 12px 16px;
+    background: var(--blue-tint);
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .scheduled-sessions h3 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--navy-dark);
+  }
+  .scheduled-sessions ul { margin: 0; padding-left: 18px; }
+  .scheduled-sessions li { margin-bottom: 4px; color: var(--text); }
+
   /* Sticky register pill */
   .sticky-pill {
     position: fixed;
@@ -466,6 +501,7 @@
   </p>
 
   <div class="buttons" id="buttons"></div>
+  <div id="scheduled-sessions"></div>
 
   <nav class="page-nav" aria-label="Page sections">
     <ul>
@@ -685,17 +721,48 @@
     metropolitan: "Metropolitan"
   };
 
-  function getFacility() {
+  // Per-facility in-person session details. null = not scheduled yet.
+  // When confirmed: elmhurst: { when: "Tue, Oct 6 · 2:00–2:45 PM", where: "Room 3C02, Main Bldg", extra: "Also 7:30 PM" (optional) }
+  const SESSIONS = {
+    bellevue: null,
+    kings: null,
+    elmhurst: null,
+    woodhull: null,
+    jacobi: null,
+    ncb: null,
+    lincoln: null,
+    sbh: null,
+    metropolitan: null
+  };
+
+  const NOTIFY_URL_PARAM = ""; // optional query string appended to IN_PERSON_URL for the notify path, e.g. "&entry.222=Date+TBD"
+
+  function getFacilityInfo() {
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('f');
-    if (slug && FACILITY_MAP[slug]) return FACILITY_MAP[slug];
+    if (slug && FACILITY_MAP[slug]) return { slug: slug, name: FACILITY_MAP[slug] };
     return null;
+  }
+
+  function appendParam(url, key, value) {
+    const separator = url.includes('?') ? '&' : '?';
+    return url + separator + key + '=' + encodeURIComponent(value);
+  }
+
+  function appendRaw(url, rawParam) {
+    if (!rawParam) return url;
+    const clean = rawParam.replace(/^[&?]/, '');
+    const separator = url.includes('?') ? '&' : '?';
+    return url + separator + clean;
   }
 
   function buildInPersonUrl(facilityDisplayName) {
     if (!facilityDisplayName || !PREFILL_PARAM) return IN_PERSON_URL;
-    const separator = IN_PERSON_URL.includes('?') ? '&' : '?';
-    return IN_PERSON_URL + separator + PREFILL_PARAM + '=' + encodeURIComponent(facilityDisplayName);
+    return appendParam(IN_PERSON_URL, PREFILL_PARAM, facilityDisplayName);
+  }
+
+  function buildNotifyUrl(facilityDisplayName) {
+    return appendRaw(buildInPersonUrl(facilityDisplayName), NOTIFY_URL_PARAM);
   }
 
   function escapeHtml(str) {
@@ -704,17 +771,69 @@
     return div.innerHTML;
   }
 
-  const facility = getFacility();
-  const inPersonLabel = facility
-    ? `In-person info session at ${escapeHtml(facility)}`
-    : "In-person info session at your hospital";
-  const inPersonUrl = buildInPersonUrl(facility);
+  const facilityInfo = getFacilityInfo();
+
+  // Renders button 1: a scheduled session, a "not yet scheduled" notify card, or the generic fallback.
+  function renderInPersonSlot() {
+    if (!facilityInfo) {
+      return `
+        <a class="action-btn" href="${IN_PERSON_URL}">
+          <span class="btn-title">In-person info session at your hospital</span>
+          <span class="btn-sub">Register for the session at your hospital</span>
+        </a>
+      `;
+    }
+
+    const name = facilityInfo.name;
+    const session = SESSIONS[facilityInfo.slug];
+
+    if (session) {
+      const url = buildInPersonUrl(name);
+      const subLine = [session.when, session.where].filter(Boolean).map(escapeHtml).join(' &middot; ');
+      const extraLine = session.extra
+        ? `<span class="btn-sub">${escapeHtml(session.extra)}</span>`
+        : '';
+      return `
+        <a class="action-btn" href="${url}">
+          <span class="btn-title">In-person info session at ${escapeHtml(name)}</span>
+          <span class="btn-sub">${subLine}</span>
+          ${extraLine}
+        </a>
+      `;
+    }
+
+    const notifyUrl = buildNotifyUrl(name);
+    return `
+      <div class="action-btn muted-card">
+        <span class="btn-title">No in-person session at ${escapeHtml(name)} yet</span>
+        <span class="btn-sub">Register for a virtual Webex session below, or ask to be notified when one is scheduled at ${escapeHtml(name)}.</span>
+        <a class="notify-link" href="${notifyUrl}">Notify me &rarr;</a>
+      </div>
+    `;
+  }
+
+  function renderScheduledSessionsList() {
+    const scheduled = Object.keys(SESSIONS)
+      .filter(slug => SESSIONS[slug])
+      .map(slug => ({ name: FACILITY_MAP[slug], session: SESSIONS[slug] }));
+
+    if (scheduled.length === 0) return '';
+
+    const items = scheduled.map(({ name, session }) => {
+      const parts = [name, session.when, session.where].filter(Boolean).map(escapeHtml);
+      return `<li>${parts.join(' &mdash; ')}</li>`;
+    }).join('');
+
+    return `
+      <div class="scheduled-sessions">
+        <h3>Scheduled in-person sessions</h3>
+        <ul>${items}</ul>
+      </div>
+    `;
+  }
 
   const buttonsHtml = `
-    <a class="action-btn" href="${inPersonUrl}">
-      <span class="btn-title">${inPersonLabel}</span>
-      <span class="btn-sub">Register for the session at your hospital</span>
-    </a>
+    ${renderInPersonSlot()}
     <a class="action-btn secondary" href="${BH_WEBEX_URL}">
       <span class="btn-title">Virtual — Behavioral Health (Webex)</span>
       <span class="btn-sub">Thu 9/17 6pm &middot; Mon 10/19 12pm &middot; Tue 11/17 2pm</span>
@@ -725,15 +844,13 @@
     </a>
   `;
   document.getElementById('buttons').innerHTML = buttonsHtml;
+  document.getElementById('scheduled-sessions').innerHTML = renderScheduledSessionsList();
 
-  // Buttons used inside quiz results (same links, compact)
+  // Buttons used inside quiz results (same slot logic, compact)
   function registerButtonsHtml() {
     return `
       <div class="buttons">
-        <a class="action-btn" href="${inPersonUrl}">
-          <span class="btn-title">${inPersonLabel}</span>
-          <span class="btn-sub">Register for the session at your hospital</span>
-        </a>
+        ${renderInPersonSlot()}
         <a class="action-btn secondary" href="${BH_WEBEX_URL}">
           <span class="btn-title">Virtual — Behavioral Health (Webex)</span>
           <span class="btn-sub">Thu 9/17 6pm &middot; Mon 10/19 12pm &middot; Tue 11/17 2pm</span>
