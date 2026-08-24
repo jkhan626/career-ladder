@@ -47,7 +47,7 @@ The application is not public. You get it only by attending a live info session 
 Virtual sessions — BH: Thu Sep 17 6:00 PM · Mon Oct 19 12:00 PM · Tue Nov 17 2:00 PM. Med-Surg: Wed Sep 16 1:00 PM · Wed Oct 21 6:00 PM · Wed Nov 18 7:00 PM. November is the last session; no December session.
 
 ## Timeline
-Sept–Dec 31, 2026 attend + apply · Feb 2027 selection notifications · Mar 2027 paperwork, agreements, CUNY application · Jun 2027 in-person cohort kickoff · Fall 2027 remaining prerequisites · Spring 2028 start nursing school. Application to RN license ≈ 3–4 years.
+Sept–Dec 31, 2026 attend + apply (APPLICATION DEADLINE: December 31, 2026 — late applications are not considered) · Feb 2027 selection notifications · Mar 2027 paperwork, agreements, and school selection · Jun 2027 in-person cohort kickoff · Fall 2027 remaining prerequisites · Oct 2027 apply to your CUNY nursing program (for Spring 2028 admission) · Spring 2028 start nursing school. Application to RN license ≈ 3–4 years. Acceptance into a CUNY nursing program is not guaranteed — admission is competitive and ranked on prerequisite grades and entrance exam score; the program supports you through the process, but CUNY makes its own admission decisions.
 
 ## What you are committing to
 - Stay full time at NYC H+H throughout (no part time / per diem).
