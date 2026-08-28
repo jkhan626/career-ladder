@@ -206,27 +206,24 @@
   .action-btn:hover { background: var(--navy-dark); border-color: var(--navy-dark); }
   .action-btn:active { transform: scale(0.99); }
   .action-btn .btn-title { display: block; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-  .action-btn .btn-sub { display: block; font-size: 14px; font-weight: 400; color: var(--blue-tint-2); }
+  .action-btn .btn-sub { display: block; font-size: 14px; font-weight: 400; color: var(--blue-tint-2); line-height: 1.55; margin-top: 3px; }
   .action-btn.secondary { background: var(--white); color: var(--navy); border: 2px solid var(--navy); }
   .action-btn.secondary .btn-sub { color: var(--text-muted); }
   .action-btn.secondary:hover { background: var(--blue-tint); }
 
-  /* Muted "no session scheduled yet" card (replaces button 1 when SESSIONS[slug] is null) */
-  .action-btn.muted-card {
-    background: var(--white);
-    color: var(--text);
-    border: 2px solid #B9C2D0;
-    cursor: default;
-  }
-  .action-btn.muted-card .btn-sub { color: var(--text-muted); }
-  .notify-link {
+  /* Navy "no session scheduled yet" card (replaces button 1 when SESSIONS[slug] is null) */
+  .action-btn .btn-cta {
     display: inline-block;
     margin-top: 10px;
-    font-weight: 700;
+    background: var(--white);
     color: var(--navy);
-    text-decoration: underline;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
   }
-  .notify-link:hover { color: var(--navy-dark); }
+  .action-btn .btn-cta:hover { background: var(--blue-tint-2); }
 
   /* Scheduled in-person sessions mini-list */
   .scheduled-sessions {
@@ -270,40 +267,6 @@
     transform: translate(-50%, 0);
     opacity: 1;
     pointer-events: auto;
-  }
-
-  /* In-page nav */
-  .page-nav {
-    position: sticky;
-    top: 0;
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    z-index: 100;
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    padding: 0 20px;
-  }
-  .page-nav ul {
-    display: flex;
-    gap: 4px;
-    list-style: none;
-    margin: 0;
-    padding: 8px 0;
-  }
-  .page-nav a {
-    display: inline-block;
-    padding: 8px 12px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--navy);
-    text-decoration: none;
-    border-radius: 999px;
-    white-space: nowrap;
-  }
-  .page-nav a:hover,
-  .page-nav a:focus-visible {
-    background: var(--blue-tint);
   }
 
   /* Sections */
@@ -579,6 +542,7 @@
     Applications close <strong>December 31, 2026</strong>.
   </p>
 
+  <h2 style="font-size: clamp(19px, 4.6vw, 22px); font-weight: 700; color: var(--navy); margin: 18px 0 10px;">Register for an info session</h2>
   <div class="buttons" id="buttons"></div>
 
   <div class="share-block" id="share-block">
@@ -590,33 +554,14 @@
         <button type="button" class="copy-btn" id="copy-link-btn">Copy link</button>
         <p class="flyer-list-title">Flyers</p>
         <ul class="flyer-list">
-          <li><a class="flyer-link" href="./Nursing_Career_Ladder_General_Flyer.pdf">Program flyer (PDF)</a></li>
-          <li><a class="flyer-link" href="./BH_Nursing_Career_Ladder_Flyer_v2.pdf">Behavioral Health flyer (PDF)</a></li>
-          <li><a class="flyer-link" href="./MedSurg_Nursing_Career_Ladder_Flyer_v2.pdf">Med-Surg flyer (PDF)</a></li>
+          <li><a class="flyer-link" href="./BH_Nursing_Career_Ladder_Flyer_v2.pdf">Behavioral Health program flyer (PDF)</a></li>
+          <li><a class="flyer-link" href="./MedSurg_Nursing_Career_Ladder_Flyer_v2.pdf">Med-Surg program flyer (PDF)</a></li>
         </ul>
       </div>
     </div>
   </div>
 
   <div id="scheduled-sessions"></div>
-
-  <nav class="page-nav" aria-label="Page sections">
-    <ul>
-      <li><a href="#share-block">Flyers</a></li>
-      <li><a href="#what-it-is">What it is</a></li>
-      <li><a href="#eligibility-full">Eligibility</a></li>
-      <li><a href="#whats-covered">What's covered</a></li>
-      <li><a href="#schools">Schools</a></li>
-      <li><a href="#prerequisites">Prerequisites</a></li>
-      <li><a href="#how-to-apply">How to apply</a></li>
-      <li><a href="#timeline">Timeline</a></li>
-      <li><a href="#commitment">Commitment</a></li>
-      <li><a href="#strong-candidate">Strong candidate</a></li>
-      <li><a href="#do-now">Do now</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="#quiz">Am I a good fit?</a></li>
-    </ul>
-  </nav>
 
   <details class="section" id="what-it-is" open>
     <summary>What it is <span class="chevron">&#9656;</span></summary>
@@ -693,7 +638,12 @@
         <li>Receive the application by email within a few days.</li>
         <li>Submit by December 31, 2026 with transcripts and letter of recommendation uploaded inside it.</li>
       </ol>
-      <p>Virtual sessions - Behavioral Health: Thu Sep 17 6:00 PM &middot; Mon Oct 19 12:00 PM &middot; Tue Nov 17 2:00 PM. Med-Surg: Wed Sep 16 1:00 PM &middot; Wed Oct 21 6:00 PM &middot; Wed Nov 18 7:00 PM. November is the last session; there is no December session.</p>
+      <p><strong>Virtual sessions:</strong></p>
+      <ul style="margin: 8px 0 12px; padding-left: 20px; line-height: 1.9;">
+        <li><strong>Behavioral Health:</strong> Thu Sep 17, 6:00 PM &middot; Mon Oct 19, 12:00 PM &middot; Tue Nov 17, 2:00 PM</li>
+        <li><strong>Med-Surg:</strong> Wed Sep 16, 1:00 PM &middot; Wed Oct 21, 6:00 PM &middot; Wed Nov 18, 7:00 PM</li>
+      </ul>
+      <p>November is the last session; there is no December session.</p>
     </div>
   </details>
 
@@ -843,8 +793,6 @@
     metropolitan: null
   };
 
-  const NOTIFY_URL_PARAM = ""; // optional query string appended to IN_PERSON_URL for the notify path, e.g. "&entry.222=Date+TBD"
-
   function getFacilityInfo() {
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('f');
@@ -857,20 +805,9 @@
     return url + separator + key + '=' + encodeURIComponent(value);
   }
 
-  function appendRaw(url, rawParam) {
-    if (!rawParam) return url;
-    const clean = rawParam.replace(/^[&?]/, '');
-    const separator = url.includes('?') ? '&' : '?';
-    return url + separator + clean;
-  }
-
   function buildInPersonUrl(facilityDisplayName) {
     if (!facilityDisplayName || !PREFILL_PARAM) return IN_PERSON_URL;
     return appendParam(IN_PERSON_URL, PREFILL_PARAM, facilityDisplayName);
-  }
-
-  function buildNotifyUrl(facilityDisplayName) {
-    return appendRaw(buildInPersonUrl(facilityDisplayName), NOTIFY_URL_PARAM);
   }
 
   function escapeHtml(str) {
@@ -881,12 +818,22 @@
 
   const facilityInfo = getFacilityInfo();
 
-  // Renders button 1: a scheduled session, a "not yet scheduled" notify card, or the generic fallback.
+  // Renders button 1: a scheduled session, a navy "register your interest" card, or the generic fallback.
   function renderInPersonSlot() {
     const formReady = !/PLACEHOLDER/.test(IN_PERSON_URL);
-    const anyScheduled = Object.values(SESSIONS).some(Boolean);
+
+    function interestCard() {
+      return `
+        <div class="action-btn">
+          <span class="btn-title">In-person info sessions at the facilities</span>
+          <span class="btn-sub">Jamal will be visiting many facilities in person this fall. Ask your nursing leadership about your hospital's date, or contact Jamal at khanj6@nychhc.org. Want to be notified when your hospital's date is set? Register your interest:</span>
+          ${formReady ? `<a class="btn-cta" href="${IN_PERSON_URL}">Register interest &rarr;</a>` : ''}
+        </div>
+      `;
+    }
 
     if (!facilityInfo) {
+      const anyScheduled = Object.values(SESSIONS).some(Boolean);
       if (formReady && anyScheduled) {
         return `
           <a class="action-btn" href="${IN_PERSON_URL}">
@@ -895,14 +842,7 @@
           </a>
         `;
       }
-      const notify = formReady ? `<a class="notify-link" href="${IN_PERSON_URL}">Notify me &rarr;</a>` : '';
-      return `
-        <div class="action-btn muted-card">
-          <span class="btn-title">In-person sessions: dates coming soon</span>
-          <span class="btn-sub">We are scheduling in-person sessions at facilities for September&ndash;November. Until yours is posted, register for a virtual Webex session below.</span>
-          ${notify}
-        </div>
-      `;
+      return interestCard();
     }
 
     const name = facilityInfo.name;
@@ -923,14 +863,7 @@
       `;
     }
 
-    const notifyUrl = buildNotifyUrl(name);
-    return `
-      <div class="action-btn muted-card">
-        <span class="btn-title">No in-person session at ${escapeHtml(name)} yet</span>
-        <span class="btn-sub">Register for a virtual Webex session below, or ask to be notified when one is scheduled at ${escapeHtml(name)}.</span>
-        ${formReady ? `<a class="notify-link" href="${notifyUrl}">Notify me &rarr;</a>` : ''}
-      </div>
-    `;
+    return interestCard();
   }
 
   function renderScheduledSessionsList() {
@@ -956,11 +889,11 @@
   const buttonsHtml = `
     ${renderInPersonSlot()}
     <a class="action-btn secondary" href="${BH_WEBEX_URL}">
-      <span class="btn-title">Virtual: Behavioral Health (Webex)</span>
+      <span class="btn-title">Register for a Behavioral Health info session (virtual)</span>
       <span class="btn-sub">Thu 9/17 6pm &middot; Mon 10/19 12pm &middot; Tue 11/17 2pm</span>
     </a>
     <a class="action-btn secondary" href="${MEDSURG_WEBEX_URL}">
-      <span class="btn-title">Virtual: Med-Surg (Webex)</span>
+      <span class="btn-title">Register for a Med-Surg info session (virtual)</span>
       <span class="btn-sub">Wed 9/16 1pm &middot; Wed 10/21 6pm &middot; Wed 11/18 7pm</span>
     </a>
   `;
@@ -1012,11 +945,11 @@
       <div class="buttons">
         ${renderInPersonSlot()}
         <a class="action-btn secondary" href="${BH_WEBEX_URL}">
-          <span class="btn-title">Virtual: Behavioral Health (Webex)</span>
+          <span class="btn-title">Register for a Behavioral Health info session (virtual)</span>
           <span class="btn-sub">Thu 9/17 6pm &middot; Mon 10/19 12pm &middot; Tue 11/17 2pm</span>
         </a>
         <a class="action-btn secondary" href="${MEDSURG_WEBEX_URL}">
-          <span class="btn-title">Virtual: Med-Surg (Webex)</span>
+          <span class="btn-title">Register for a Med-Surg info session (virtual)</span>
           <span class="btn-sub">Wed 9/16 1pm &middot; Wed 10/21 6pm &middot; Wed 11/18 7pm</span>
         </a>
       </div>
