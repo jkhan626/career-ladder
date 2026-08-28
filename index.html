@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nursing Career Ladder — NYC Health + Hospitals</title>
+<title>Nursing Career Ladder | NYC Health + Hospitals</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -174,6 +174,20 @@
     font-weight: 600;
     color: var(--navy);
     text-decoration: underline;
+  }
+  .flyer-list-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin: 4px 0 0;
+  }
+  .flyer-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .buttons { display: flex; flex-direction: column; gap: 16px; }
@@ -574,7 +588,12 @@
       <div class="share-info">
         <a class="share-link" id="share-link" href="#"></a>
         <button type="button" class="copy-btn" id="copy-link-btn">Copy link</button>
-        <a class="flyer-link" href="./Nursing_Career_Ladder_General_Flyer.pdf">Download the flyer (PDF)</a>
+        <p class="flyer-list-title">Flyers</p>
+        <ul class="flyer-list">
+          <li><a class="flyer-link" href="./Nursing_Career_Ladder_General_Flyer.pdf">Program flyer (PDF)</a></li>
+          <li><a class="flyer-link" href="./BH_Nursing_Career_Ladder_Flyer_v2.pdf">Behavioral Health flyer (PDF)</a></li>
+          <li><a class="flyer-link" href="./MedSurg_Nursing_Career_Ladder_Flyer_v2.pdf">Med-Surg flyer (PDF)</a></li>
+        </ul>
       </div>
     </div>
   </div>
@@ -583,6 +602,7 @@
 
   <nav class="page-nav" aria-label="Page sections">
     <ul>
+      <li><a href="#share-block">Flyers</a></li>
       <li><a href="#what-it-is">What it is</a></li>
       <li><a href="#eligibility-full">Eligibility</a></li>
       <li><a href="#whats-covered">What's covered</a></li>
@@ -621,7 +641,7 @@
         <li>Committed to working as an RN at NYC H+H after you are licensed</li>
       </ul>
       <p><strong>Ineligible:</strong> currently enrolled in, or previously enrolled in, a nursing program outside CUNY.</p>
-      <p><strong>Exception (fast track):</strong> currently enrolled in a CUNY Associate Degree (AAS) nursing program — tell us now; we may be able to start covering tuition right away.</p>
+      <p><strong>Exception (fast track):</strong> currently enrolled in a CUNY Associate Degree (AAS) nursing program - tell us now; we may be able to start covering tuition right away.</p>
     </div>
   </details>
 
@@ -647,7 +667,7 @@
       </div>
       <div class="school-cards" id="schools-cards"></div>
       <div class="note-box">
-        Pick your school <strong>before</strong> booking an entrance exam — the wrong exam does not transfer. Some campuses run one admission cycle a year; missing a deadline can cost twelve months. We help match your transcript, grades, and schedule to the right campus.
+        Pick your school <strong>before</strong> booking an entrance exam - the wrong exam does not transfer. Some campuses run one admission cycle a year; missing a deadline can cost twelve months. We help match your transcript, grades, and schedule to the right campus.
       </div>
     </div>
   </details>
@@ -658,7 +678,7 @@
       <p>10 prerequisite courses, required at every campus:</p>
       <ul class="checklist" id="prereq-checklist"></ul>
       <div class="note-box">
-        Rules: A's and B's (admission is ranked on these grades). Shelf life: A&amp;P ~7 yrs, Microbiology 5–10 yrs, Chemistry ~10 yrs, depending on campus. Regionally accredited colleges only — online course mills, bootcamps, certificate programs do not transfer.
+        Rules: A's and B's (admission is ranked on these grades). Shelf life: A&amp;P ~7 yrs, Microbiology 5–10 yrs, Chemistry ~10 yrs, depending on campus. Regionally accredited colleges only - online course mills, bootcamps, certificate programs do not transfer.
       </div>
     </div>
   </details>
@@ -673,7 +693,7 @@
         <li>Receive the application by email within a few days.</li>
         <li>Submit by December 31, 2026 with transcripts and letter of recommendation uploaded inside it.</li>
       </ol>
-      <p>Virtual sessions — Behavioral Health: Thu Sep 17 6:00 PM &middot; Mon Oct 19 12:00 PM &middot; Tue Nov 17 2:00 PM. Med-Surg: Wed Sep 16 1:00 PM &middot; Wed Oct 21 6:00 PM &middot; Wed Nov 18 7:00 PM. November is the last session; there is no December session.</p>
+      <p>Virtual sessions - Behavioral Health: Thu Sep 17 6:00 PM &middot; Mon Oct 19 12:00 PM &middot; Tue Nov 17 2:00 PM. Med-Surg: Wed Sep 16 1:00 PM &middot; Wed Oct 21 6:00 PM &middot; Wed Nov 18 7:00 PM. November is the last session; there is no December session.</p>
     </div>
   </details>
 
@@ -681,7 +701,7 @@
     <summary>Timeline <span class="chevron">&#9656;</span></summary>
     <div class="section-body">
       <ul class="stepper">
-        <li class="deadline"><span class="step-when">Sept &ndash; Dec 31, 2026</span><span class="step-what">Attend a session and apply. <span class="deadline-flag">Application deadline: December 31, 2026</span> &mdash; late applications are not considered.</span></li>
+        <li class="deadline"><span class="step-when">Sept &ndash; Dec 31, 2026</span><span class="step-what">Attend a session and apply. <span class="deadline-flag">Application deadline: December 31, 2026</span> - late applications are not considered.</span></li>
         <li><span class="step-when">Feb 2027</span><span class="step-what">Selection notifications</span></li>
         <li><span class="step-when">Mar 2027</span><span class="step-what">Paperwork, agreements, and school selection</span></li>
         <li><span class="step-when">Jun 2027</span><span class="step-what">In-person cohort kickoff</span></li>
@@ -689,7 +709,7 @@
         <li><span class="step-when">Oct 2027</span><span class="step-what">Apply to your CUNY nursing program (for Spring 2028 admission)</span></li>
         <li><span class="step-when">Spring 2028</span><span class="step-what">Start nursing school</span></li>
       </ul>
-      <p class="note-box">Application to RN license takes about 3&ndash;4 years. <strong>Acceptance into a CUNY nursing program is not guaranteed</strong> &mdash; admission is competitive and ranked on your prerequisite grades and entrance exam score. The program supports you through the process, but CUNY makes its own admission decisions.</p>
+      <p class="note-box">Application to RN license takes about 3&ndash;4 years. <strong>Acceptance into a CUNY nursing program is not guaranteed</strong> - admission is competitive and ranked on your prerequisite grades and entrance exam score. The program supports you through the process, but CUNY makes its own admission decisions.</p>
     </div>
   </details>
 
@@ -713,7 +733,7 @@
       <ul>
         <li>At least 5 of the 10 prerequisites done (zero done cannot make this cohort's timeline).</li>
         <li>Mostly A's and B's (GPA below 3.5 is a long shot).</li>
-        <li>Currently taking classes — one of the strongest signals.</li>
+        <li>Currently taking classes - one of the strongest signals.</li>
         <li>Transcript matches the application.</li>
         <li>A supervisor who supports you, in writing and in practice.</li>
         <li>A clear, realistic plan for working full time and going to school (one short essay).</li>
@@ -729,19 +749,19 @@
         <li>Order official transcripts from every college attended, sent to your email, as PDFs (photos/screenshots rejected).</li>
         <li>Merge all transcripts into one PDF.</li>
         <li>Count your prerequisites, grades, and science-course ages.</li>
-        <li>Talk to your supervisor now — letter of recommendation (give weeks, not days) and schedule changes as soon as Fall 2027.</li>
+        <li>Talk to your supervisor now - letter of recommendation (give weeks, not days) and schedule changes as soon as Fall 2027.</li>
         <li>Not in school? Register for a prerequisite this semester.</li>
-        <li>Register with the email you actually check — the application goes to that exact address.</li>
+        <li>Register with the email you actually check - the application goes to that exact address.</li>
       </ol>
       <div class="callout-red">
         <h3>What not to do</h3>
         <ul>
-          <li>Don't email documents — everything uploads inside the application.</li>
-          <li>No screenshots or phone photos — PDFs only.</li>
+          <li>Don't email documents - everything uploads inside the application.</li>
+          <li>No screenshots or phone photos - PDFs only.</li>
           <li>Don't order transcripts to Jamal's email.</li>
           <li>Don't skip the supervisor letter.</li>
           <li>Don't apply to both programs.</li>
-          <li>Don't submit late — closes December 31, 2026.</li>
+          <li>Don't submit late - closes December 31, 2026.</li>
         </ul>
       </div>
     </div>
@@ -783,7 +803,7 @@
 <script>
   // ================= Config =================
   const IN_PERSON_URL = "https://nychealthandhospitals.surveymonkey.com/r/ZVZZ6JK";
-  const PREFILL_PARAM = ""; // SurveyMonkey has no prefill support — the form has its own
+  const PREFILL_PARAM = ""; // SurveyMonkey has no prefill support - the form has its own
                             // facility dropdown, so this stays empty. e.g. "facility" for a
                             // provider that does support prefill via query param.
 
@@ -922,7 +942,7 @@
 
     const items = scheduled.map(({ name, session }) => {
       const parts = [name, session.when, session.where].filter(Boolean).map(escapeHtml);
-      return `<li>${parts.join(' &mdash; ')}</li>`;
+      return `<li>${parts.join(' - ')}</li>`;
     }).join('');
 
     return `
@@ -936,11 +956,11 @@
   const buttonsHtml = `
     ${renderInPersonSlot()}
     <a class="action-btn secondary" href="${BH_WEBEX_URL}">
-      <span class="btn-title">Virtual — Behavioral Health (Webex)</span>
+      <span class="btn-title">Virtual: Behavioral Health (Webex)</span>
       <span class="btn-sub">Thu 9/17 6pm &middot; Mon 10/19 12pm &middot; Tue 11/17 2pm</span>
     </a>
     <a class="action-btn secondary" href="${MEDSURG_WEBEX_URL}">
-      <span class="btn-title">Virtual — Med-Surg (Webex)</span>
+      <span class="btn-title">Virtual: Med-Surg (Webex)</span>
       <span class="btn-sub">Wed 9/16 1pm &middot; Wed 10/21 6pm &middot; Wed 11/18 7pm</span>
     </a>
   `;
@@ -992,11 +1012,11 @@
       <div class="buttons">
         ${renderInPersonSlot()}
         <a class="action-btn secondary" href="${BH_WEBEX_URL}">
-          <span class="btn-title">Virtual — Behavioral Health (Webex)</span>
+          <span class="btn-title">Virtual: Behavioral Health (Webex)</span>
           <span class="btn-sub">Thu 9/17 6pm &middot; Mon 10/19 12pm &middot; Tue 11/17 2pm</span>
         </a>
         <a class="action-btn secondary" href="${MEDSURG_WEBEX_URL}">
-          <span class="btn-title">Virtual — Med-Surg (Webex)</span>
+          <span class="btn-title">Virtual: Med-Surg (Webex)</span>
           <span class="btn-sub">Wed 9/16 1pm &middot; Wed 10/21 6pm &middot; Wed 11/18 7pm</span>
         </a>
       </div>
@@ -1043,18 +1063,18 @@
 
   // ================= FAQ =================
   const FAQS = [
-    ["Can I apply to both tracks?", "No. Apply only to the track that matches where you work now — Behavioral Health or Med-Surg. There are plenty of seats in each program, so applying twice does not improve your chances, and it slows down review for everyone."],
-    ["I'm already in a nursing program — am I eligible?", "If it's outside CUNY, no — that makes you ineligible for this program. If you're currently enrolled in a CUNY Associate Degree (AAS) nursing program, that's the one exception: it's a fast track. Tell us now — we may be able to start covering your tuition right away."],
+    ["Can I apply to both tracks?", "No. Apply only to the track that matches where you work now - Behavioral Health or Med-Surg. There are plenty of seats in each program, so applying twice does not improve your chances, and it slows down review for everyone."],
+    ["I'm already in a nursing program - am I eligible?", "If it's outside CUNY, no - that makes you ineligible for this program. If you're currently enrolled in a CUNY Associate Degree (AAS) nursing program, that's the one exception: it's a fast track. Tell us now - we may be able to start covering your tuition right away."],
     ["Is acceptance into a CUNY nursing program guaranteed?", "No. Being selected for the Career Ladder pays for school, but CUNY nursing admission is competitive and decided by each college based on your prerequisite grades and entrance exam score. That is why strong grades matter so much: mostly A's and B's is the realistic bar. We help you pick the campus where your record is most competitive."],
-      ["Do I need all 10 prerequisites before applying?", "No, but the more you have done, the stronger your application. At least 5 of the 10 is what makes a strong candidate; zero done means you cannot make this cohort's timeline — start a prerequisite this semester."],
-    ["Which school should I choose?", "Pick your school before booking an entrance exam — the wrong exam does not transfer between schools. We help match your transcript, grades, and schedule to the right of the 9 CUNY AAS Nursing campuses."],
+      ["Do I need all 10 prerequisites before applying?", "No, but the more you have done, the stronger your application. At least 5 of the 10 is what makes a strong candidate; zero done means you cannot make this cohort's timeline - start a prerequisite this semester."],
+    ["Which school should I choose?", "Pick your school before booking an entrance exam - the wrong exam does not transfer between schools. We help match your transcript, grades, and schedule to the right of the 9 CUNY AAS Nursing campuses."],
     ["Which entrance exam do I take?", "It depends on your school: BMCC uses HESI A2; Bronx CC, Hostos, Kingsborough, LaGuardia, and City Tech use TEAS; Medgar Evers uses NLN PAX; Queensborough uses NLN NEX. Confirm with College of Staten Island directly. Choose your school first, then the exam."],
-    ["Can I go part-time at work?", "No. You must stay full time at NYC H+H throughout the program — no part time or per diem."],
+    ["Can I go part-time at work?", "No. You must stay full time at NYC H+H throughout the program - no part time or per diem."],
     ["What if I don't finish?", "If you do not finish nursing school, you still owe the service obligation in your current title. Failed courses can be retaken at your own expense if the school allows."],
-    ["What do I owe after I'm licensed?", "You commit to 3 years as an RN at NYC H+H in your track. If you leave early, repayment tiers apply — full, two-thirds, or one-third, depending on time served."],
-    ["How do I get the application?", "The application is not public — you get it only by attending a live info session, in person at your facility or virtual on Webex. After each session we pull attendance and email the application to everyone who attended, usually within a few days."],
-    ["What if I miss the November session?", "November is the last session — there is no December session. Register for one of the remaining sessions before then; applications close December 31, 2026 regardless."],
-    ["Where do I send my transcripts?", "Nowhere by email — don't send documents to Jamal or anyone else directly. Order official transcripts to your own email as PDFs, merge them into one PDF, and upload that PDF inside the application itself."]
+    ["What do I owe after I'm licensed?", "You commit to 3 years as an RN at NYC H+H in your track. If you leave early, repayment tiers apply - full, two-thirds, or one-third, depending on time served."],
+    ["How do I get the application?", "The application is not public - you get it only by attending a live info session, in person at your facility or virtual on Webex. After each session we pull attendance and email the application to everyone who attended, usually within a few days."],
+    ["What if I miss the November session?", "November is the last session - there is no December session. Register for one of the remaining sessions before then; applications close December 31, 2026 regardless."],
+    ["Where do I send my transcripts?", "Nowhere by email - don't send documents to Jamal or anyone else directly. Order official transcripts to your own email as PDFs, merge them into one PDF, and upload that PDF inside the application itself."]
   ];
   document.getElementById('faq-body').innerHTML = FAQS.map(([q, a]) => `
     <details class="faq-item">
@@ -1074,7 +1094,7 @@
   window.addEventListener('resize', syncDetailsOpen);
 
   // ================= Sticky register pill =================
-  // Hides whenever ANY register-button group (.buttons) is in the viewport —
+  // Hides whenever ANY register-button group (.buttons) is in the viewport -
   // the top #buttons group, or the register buttons inside a quiz result.
   const stickyPill = document.getElementById('sticky-pill');
   const visibleRegisterGroups = new Set();
@@ -1216,8 +1236,8 @@
     // Priority 1: fast track overrides everything
     if (a.cunyAas === 'Yes') {
       tier = 'strong';
-      title = 'Fast track — contact Jamal now';
-      body.push("You're currently enrolled in a CUNY AAS nursing program, which is the one exception to this program's usual eligibility rules. Contact Jamal directly — we may be able to start covering your tuition right away, outside the usual info-session cycle.");
+      title = 'Fast track: contact Jamal now';
+      body.push("You're currently enrolled in a CUNY AAS nursing program, which is the one exception to this program's usual eligibility rules. Contact Jamal directly - we may be able to start covering your tuition right away, outside the usual info-session cycle.");
     } else if (a.title === 'Other' || a.fulltime === 'No') {
       tier = 'not-yet';
       title = 'Not eligible right now';
@@ -1238,41 +1258,41 @@
       else if (a.prereqCount === '1–4') score += 1;
       else if (a.prereqCount === '0') {
         score -= 3;
-        path.push('Cannot make this cohort\'s timeline with zero prerequisites done — start a prerequisite course this semester.');
+        path.push('Cannot make this cohort\'s timeline with zero prerequisites done - start a prerequisite course this semester.');
       }
 
       if (a.grades === 'Yes') score += 2;
       else if (a.grades === 'No') {
         score -= 2;
-        strengthen.push('Aim for mostly A\'s and B\'s — admission is ranked on prerequisite grades, and GPA below 3.5 is a long shot.');
+        strengthen.push('Aim for mostly A\'s and B\'s - admission is ranked on prerequisite grades, and GPA below 3.5 is a long shot.');
       } else if (a.grades === 'Mixed') {
         strengthen.push('Push your prerequisite grades toward mostly A\'s and B\'s where you can.');
       }
 
       if (a.currentClasses === 'Yes') score += 2;
       else {
-        strengthen.push('Enroll in a prerequisite course this semester — currently taking classes is one of the strongest signals.');
+        strengthen.push('Enroll in a prerequisite course this semester - currently taking classes is one of the strongest signals.');
       }
 
       if (a.commitment === 'Yes') score += 1;
       else if (a.commitment === 'Not sure') {
         strengthen.push('Think through the full commitment: full-time work, mostly in-person classes, and 3 years as an H+H RN after licensure.');
       } else if (a.commitment === 'No') {
-        path.push('This program requires staying full time, attending mostly in-person classes, and committing to 3 years as an H+H RN after licensure — revisit whether that\'s workable for you right now.');
+        path.push('This program requires staying full time, attending mostly in-person classes, and committing to 3 years as an H+H RN after licensure - revisit whether that\'s workable for you right now.');
       }
 
       if (score >= 6) {
         tier = 'strong';
-        title = 'Strong fit — register now';
+        title = 'Strong fit - register now';
         body.push('Your prerequisites, grades, and current momentum line up well with what makes a strong candidate. Register for an info session and start your application.');
       } else if (score >= 2) {
         tier = 'possible';
-        title = "Possible fit — here's what to strengthen";
+        title = "Possible fit - here's what to strengthen";
         body.push('You meet the basic eligibility requirements. A few things would strengthen your application:');
         body.push({ list: strengthen.length ? strengthen : ['Talk to your supervisor now about a letter of recommendation and any schedule changes.'] });
       } else {
         tier = 'not-yet';
-        title = "Not yet — here's your path";
+        title = "Not yet - here's your path";
         body.push('You meet the basic eligibility requirements, but your application would be a long shot in this cohort. Here\'s a path forward:');
         body.push({ list: (path.length ? path : []).concat(strengthen) });
       }
