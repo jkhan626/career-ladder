@@ -512,6 +512,117 @@
     text-decoration: underline;
   }
 
+  /* Hamburger menu */
+  .menu-btn {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 600;
+    padding: 0;
+  }
+  .menu-btn span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--navy);
+    border-radius: 2px;
+  }
+
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(16, 23, 41, 0.4);
+    z-index: 700;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .menu-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .menu-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    max-width: 300px;
+    background: var(--white);
+    box-shadow: -6px 0 24px rgba(0,0,0,0.22);
+    z-index: 800;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+  }
+  .menu-panel.visible {
+    transform: translateX(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .menu-panel { transition: none; }
+    .menu-overlay { transition: none; }
+  }
+  .menu-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .menu-panel-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--navy-dark);
+    margin: 0;
+  }
+  .menu-close-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--navy);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .menu-list li {
+    border-bottom: 1px solid var(--border);
+  }
+  .menu-list a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 16px;
+    color: var(--navy);
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .menu-list a:hover {
+    background: var(--blue-tint);
+  }
+
   footer {
     padding: 28px 20px 40px;
     background: var(--blue-tint);
@@ -528,6 +639,20 @@
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <div class="top-bar"></div>
+
+<button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-label="Open menu" aria-controls="menu-panel">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="menu-overlay" id="menu-overlay" hidden></div>
+
+<nav class="menu-panel" id="menu-panel" role="dialog" aria-modal="true" aria-label="Page navigation" hidden>
+  <div class="menu-panel-header">
+    <p class="menu-panel-title">Menu</p>
+    <button type="button" class="menu-close-btn" id="menu-close-btn" aria-label="Close menu">&times;</button>
+  </div>
+  <ul class="menu-list" id="menu-list"></ul>
+</nav>
 
 <header>
   <p class="org-name">NYC Health + Hospitals</p>
@@ -1258,6 +1383,99 @@
   }
 
   renderQuizStep();
+
+  // ================= Hamburger menu =================
+  const MENU_LINKS = [
+    { href: '#buttons', label: 'Register for an info session' },
+    { href: '#share-block', label: 'Flyers' },
+    { href: '#what-it-is', label: 'What it is' },
+    { href: '#eligibility-full', label: 'Eligibility' },
+    { href: '#whats-covered', label: "What's covered" },
+    { href: '#schools', label: 'Schools' },
+    { href: '#prerequisites', label: 'Prerequisites' },
+    { href: '#how-to-apply', label: 'How to apply' },
+    { href: '#timeline', label: 'Timeline' },
+    { href: '#commitment', label: 'Commitment' },
+    { href: '#strong-candidate', label: 'Strong candidate' },
+    { href: '#do-now', label: 'Do now' },
+    { href: '#faq', label: 'FAQ' },
+    { href: '#quiz', label: 'Am I a good fit?' }
+  ];
+
+  const menuBtn = document.getElementById('menu-btn');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const menuPanel = document.getElementById('menu-panel');
+  const menuCloseBtn = document.getElementById('menu-close-btn');
+  const menuList = document.getElementById('menu-list');
+
+  menuList.innerHTML = MENU_LINKS.map(({ href, label }) => `
+    <li><a href="${href}" data-menu-link="${href}">${label}</a></li>
+  `).join('');
+
+  function openMenu() {
+    menuOverlay.hidden = false;
+    menuPanel.hidden = false;
+    // Force layout before adding the visible class so the transition runs.
+    void menuPanel.offsetWidth;
+    menuOverlay.classList.add('visible');
+    menuPanel.classList.add('visible');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    menuCloseBtn.focus();
+    document.addEventListener('keydown', onMenuKeydown);
+  }
+
+  function closeMenu() {
+    menuOverlay.classList.remove('visible');
+    menuPanel.classList.remove('visible');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('keydown', onMenuKeydown);
+    menuBtn.focus();
+    setTimeout(() => {
+      if (!menuPanel.classList.contains('visible')) {
+        menuOverlay.hidden = true;
+        menuPanel.hidden = true;
+      }
+    }, 260);
+  }
+
+  function onMenuKeydown(e) {
+    if (e.key === 'Escape') {
+      closeMenu();
+      return;
+    }
+    if (e.key === 'Tab') {
+      const focusable = menuPanel.querySelectorAll('a, button');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  menuBtn.addEventListener('click', openMenu);
+  menuCloseBtn.addEventListener('click', closeMenu);
+  menuOverlay.addEventListener('click', closeMenu);
+
+  menuList.addEventListener('click', (e) => {
+    const link = e.target.closest('a[data-menu-link]');
+    if (!link) return;
+    e.preventDefault();
+    const targetId = link.getAttribute('data-menu-link');
+    const target = document.querySelector(targetId);
+    closeMenu();
+    if (!target) return;
+    if (target.tagName === 'DETAILS' && !target.open) {
+      target.open = true;
+    }
+    setTimeout(() => {
+      target.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    }, 0);
+  });
 </script>
 
 </body>
