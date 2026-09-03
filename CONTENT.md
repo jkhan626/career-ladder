@@ -8,7 +8,7 @@ Two tracks, separate application cycles:
 - Behavioral Health Nursing Career Ladder (Cohort 3), for staff in behavioral health settings
 - Med-Surg Nursing Career Ladder (Cohort 2), for staff in med-surg settings
 
-Apply to the one that matches where you work now. APPLY TO ONE PROGRAM ONLY. There are plenty of seats in each program; applying twice does not improve your chances.
+Apply to the one that matches where you want to work as an RN after graduation. You do not need to work in a med-surg or behavioral health unit now. APPLY TO ONE PROGRAM ONLY. There are plenty of seats in each program; applying twice does not improve your chances.
 
 ## Who is eligible
 - Full-time PCA, PCT, PSHT or BHA (PSHT and BHA apply to the behavioral health track)
