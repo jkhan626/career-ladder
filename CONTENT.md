@@ -5,10 +5,10 @@ Source: Jamal's standard inquiry reply, 2026-08. Keep wording; tighten only for 
 The Nursing Career Ladder pays for NYC Health + Hospitals support staff to become Registered Nurses. NYC H+H pays your tuition and fees directly to CUNY and reimburses your related costs, so you can earn an RN without taking on the financial burden yourself. You keep your full-time H+H job and your paycheck the entire time you are in school.
 
 Two tracks, separate application cycles:
-- Behavioral Health Nursing Career Ladder (Cohort 3), for staff in behavioral health settings
-- Med-Surg Nursing Career Ladder (Cohort 2), for staff in med-surg settings
+- Behavioral Health Nursing Career Ladder (Cohort 3): you become an RN in a behavioral health setting. Open to PCAs, PCTs, BHAs, and PSHTs.
+- Med-Surg Nursing Career Ladder (Cohort 2): you become an RN in a med-surg setting. Open to PCAs and PCTs.
 
-Apply to the one that matches where you want to work as an RN after graduation. You do not need to work in a med-surg or behavioral health unit now. APPLY TO ONE PROGRAM ONLY. There are plenty of seats in each program; applying twice does not improve your chances.
+Apply to the one that matches where you want to work as an RN after graduation. Your current unit does not matter: you do not need to work in a behavioral health or med-surg area today. APPLY TO ONE PROGRAM ONLY. There are plenty of seats in each program; applying twice does not improve your chances.
 
 ## Who is eligible
 - Full-time PCA, PCT, PSHT or BHA (PSHT and BHA apply to the behavioral health track)
