@@ -658,7 +658,7 @@
 <header>
   <p class="org-name">NYC Health + Hospitals</p>
   <h1>Nursing Career Ladder</h1>
-  <p class="subhead">Become an RN. H+H pays your CUNY tuition.</p>
+  <p class="subhead">Become an RN. NYC H+H pays your CUNY tuition.</p>
 </header>
 
 <main id="main">
@@ -692,7 +692,7 @@
   <details class="section" id="what-it-is" open>
     <summary>What it is <span class="chevron">&#9656;</span></summary>
     <div class="section-body">
-      <p>The Nursing Career Ladder pays for NYC Health + Hospitals support staff to become Registered Nurses. NYC H+H pays your tuition and fees directly to CUNY and reimburses your related costs, so you can earn an RN without taking on the financial burden yourself. You keep your full-time H+H job and your paycheck the entire time you are in school.</p>
+      <p>The Nursing Career Ladder pays for NYC Health + Hospitals support staff to become Registered Nurses. NYC H+H pays your tuition and fees directly to CUNY and reimburses your related costs, so you can earn an RN without taking on the financial burden yourself. You keep your full-time NYC H+H job and your paycheck the entire time you are in school.</p>
       <p>Two tracks, separate application cycles:</p>
       <ul>
         <li>Behavioral Health Nursing Career Ladder (Cohort 3): you become an RN in a behavioral health setting. Open to PCAs, PCTs, BHAs, and PSHTs.</li>
@@ -872,7 +872,7 @@
     &middot; khanj6@nychhc.org &middot; 929-736-3655
   </p>
   <p class="disclaimer">
-    Not an H+H employee? This program is for current NYC Health + Hospitals staff.
+    Not an NYC H+H employee? This program is for current NYC Health + Hospitals staff.
   </p>
   <p class="updated">Last updated: August 2026</p>
 </footer>
@@ -1123,7 +1123,7 @@
 
   // ================= FAQ =================
   const FAQS = [
-    ["Do I have to work in a behavioral health or med-surg unit to apply?", "No. Staff from any unit or department can apply, as long as you hold a full-time PCA, PCT, BHA, or PSHT title with 1+ year at H+H. The track you choose (Behavioral Health or Med-Surg) is where you commit to work as an RN after you graduate, not where you work today."],
+    ["Do I have to work in a behavioral health or med-surg unit to apply?", "No. Staff from any unit or department can apply, as long as you hold a full-time PCA, PCT, BHA, or PSHT title with 1+ year at NYC H+H. The track you choose (Behavioral Health or Med-Surg) is where you commit to work as an RN after you graduate, not where you work today."],
     ["Can I apply to both tracks?", "No. Apply only to the track that matches where you want to work as an RN after graduation - Behavioral Health or Med-Surg. There are plenty of seats in each program, so applying twice does not improve your chances, and it slows down review for everyone."],
     ["I'm already in a nursing program - am I eligible?", "If it's outside CUNY, no - that makes you ineligible for this program. If you're currently enrolled in a CUNY Associate Degree (AAS) nursing program, that's the one exception: it's a fast track. Tell us now - we may be able to start covering your tuition right away."],
     ["Is acceptance into a CUNY nursing program guaranteed?", "No. Being selected for the Career Ladder pays for school, but CUNY nursing admission is competitive and decided by each college based on your prerequisite grades and entrance exam score. That is why strong grades matter so much: mostly A's and B's is the realistic bar. We help you pick the campus where your record is most competitive."],
@@ -1187,7 +1187,7 @@
     },
     {
       key: 'fulltime',
-      question: 'Have you worked full-time at H+H for 1+ year?',
+      question: 'Have you worked full-time at NYC H+H for 1+ year?',
       options: ['Yes', 'No']
     },
     {
@@ -1217,7 +1217,7 @@
     },
     {
       key: 'commitment',
-      question: 'Can you commit to full-time work, mostly in-person classes, and 3 years as an H+H RN after licensure?',
+      question: 'Can you commit to full-time work, mostly in-person classes, and 3 years as an NYC H+H RN after licensure?',
       options: ['Yes', 'Not sure', 'No']
     }
   ];
@@ -1304,7 +1304,7 @@
       title = 'Not eligible right now';
       body.push('This program requires a full-time PCA, PCT, BHA, or PSHT title with at least 1 year of tenure at NYC H+H.');
       if (a.title === 'Other') body.push("Your title wasn't one of the four covered titles (PCA, PCT, BHA, PSHT).");
-      if (a.fulltime === 'No') body.push("You'll need full-time status and 1+ year of tenure at H+H before you're eligible.");
+      if (a.fulltime === 'No') body.push("You'll need full-time status and 1+ year of tenure at NYC H+H before you're eligible.");
     } else if (a.outsideCuny === 'Yes') {
       tier = 'not-yet';
       title = 'Not eligible';
@@ -1337,9 +1337,9 @@
 
       if (a.commitment === 'Yes') score += 1;
       else if (a.commitment === 'Not sure') {
-        strengthen.push('Think through the full commitment: full-time work, mostly in-person classes, and 3 years as an H+H RN after licensure.');
+        strengthen.push('Think through the full commitment: full-time work, mostly in-person classes, and 3 years as an NYC H+H RN after licensure.');
       } else if (a.commitment === 'No') {
-        path.push('This program requires staying full time, attending mostly in-person classes, and committing to 3 years as an H+H RN after licensure - revisit whether that\'s workable for you right now.');
+        path.push('This program requires staying full time, attending mostly in-person classes, and committing to 3 years as an NYC H+H RN after licensure - revisit whether that\'s workable for you right now.');
       }
 
       if (score >= 6) {
