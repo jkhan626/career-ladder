@@ -1136,12 +1136,18 @@
   const FAQS = [
     ["Do I have to work in a behavioral health or med-surg unit to apply?", "No. Staff from any unit or department can apply, as long as you hold a full-time PCA, PCT, BHA, or PSHT title with 1+ year at NYC H+H. The track you choose (Behavioral Health or Med-Surg) is where you commit to work as an RN after you graduate, not where you work today."],
     ["Can I apply to both tracks?", "No. Apply only to the track that matches where you want to work as an RN after graduation - Behavioral Health or Med-Surg. There are plenty of seats in each program, so applying twice does not improve your chances, and it slows down review for everyone."],
-    ["I'm already in a nursing program - am I eligible?", "If it's outside CUNY, no - that makes you ineligible for this program. If you're currently enrolled in a CUNY Associate Degree (AAS) nursing program, that's the one exception: it's a fast track. Tell us now - we may be able to start covering your tuition right away."],
+    ["I'm already in a nursing program. Am I eligible?", "If you are currently enrolled in a CUNY Associate Degree (AAS) nursing program, you may qualify for our fast track. Email Jamal at khanj6@nychhc.org with your school and expected graduation. If you are enrolled in any other nursing program, including a CUNY bachelor's (BSN) program, a private school, or a school outside NYC, you cannot switch into the Career Ladder."],
+    ["Does the program pay for private schools or bachelor's programs?", "No. The program pays for CUNY Associate Degree (AAS) in Nursing programs only."],
     ["Is acceptance into a CUNY nursing program guaranteed?", "No. Being selected for the Career Ladder pays for school, but CUNY nursing admission is competitive and decided by each college based on your prerequisite grades and entrance exam score. That is why strong grades matter so much: mostly A's and B's is the realistic bar. We help you pick the campus where your record is most competitive."],
       ["Do I need all 10 prerequisites before applying?", "No, but the more you have done, the stronger your application. At least 5 of the 10 is what makes a strong candidate; zero done means you cannot make this cohort's timeline - start a prerequisite this semester."],
+    ["How old can my prerequisite courses be?", "Science courses expire. Microbiology counts for 5 years, Anatomy & Physiology for 7 years, and Chemistry for 10 years. Older courses need to be retaken."],
+    ["I got a C in a prerequisite. What should I do?", "Retake it if your school allows. CUNY nursing admission is competitive, so aim for mostly A's and B's and an overall GPA of 3.5 or higher."],
+    ["I already have a college degree. Does that help?", "The degree itself does not matter. Only the 10 prerequisites count, and your CUNY college decides which past courses transfer."],
     ["Which school should I choose?", "Pick your school before booking an entrance exam - the wrong exam does not transfer between schools. We help match your transcript, grades, and schedule to the right of the 9 CUNY AAS Nursing campuses."],
     ["Which entrance exam do I take?", "It depends on your school: BMCC uses HESI A2; Bronx CC, Hostos, Kingsborough, LaGuardia, and City Tech use TEAS; Medgar Evers uses NLN PAX; Queensborough uses NLN NEX. Confirm with College of Staten Island directly. Choose your school first, then the exam."],
+    ["I failed the nursing entrance exam. Can I retake it?", "Each school sets its own retake rules. Check with the school before you book another exam."],
     ["Can I go part-time at work?", "No. You must stay full time at NYC H+H throughout the program - no part time or per diem."],
+    ["Can I take classes online?", "No. Plan on all of your classes being in person, not just labs."],
     ["What if I don't finish?", "If you do not finish nursing school, you still owe the service obligation in your current title. Failed courses can be retaken at your own expense if the school allows."],
     ["What do I owe after I'm licensed?", "You commit to 3 years as an RN at NYC H+H in your track. If you leave early, repayment tiers apply - full, two-thirds, or one-third, depending on time served."],
     ["How do I get the application?", "The application is not public - you get it only by attending a live info session, in person at your facility or virtual on Webex. After each session we pull attendance and email the application to everyone who attended, usually within a few days."],
@@ -1202,8 +1208,8 @@
       options: ['Yes', 'No']
     },
     {
-      key: 'outsideCuny',
-      question: 'Have you ever been enrolled in a nursing program outside CUNY?',
+      key: 'otherNursingProgram',
+      question: 'Are you currently enrolled in a nursing program other than a CUNY Associate Degree (AAS) program?',
       options: ['Yes', 'No']
     },
     {
@@ -1316,10 +1322,10 @@
       body.push('This program requires a full-time PCA, PCT, BHA, or PSHT title with at least 1 year of tenure at NYC H+H.');
       if (a.title === 'Other') body.push("Your title wasn't one of the four covered titles (PCA, PCT, BHA, PSHT).");
       if (a.fulltime === 'No') body.push("You'll need full-time status and 1+ year of tenure at NYC H+H before you're eligible.");
-    } else if (a.outsideCuny === 'Yes') {
+    } else if (a.otherNursingProgram === 'Yes') {
       tier = 'not-yet';
       title = 'Not eligible';
-      body.push('Anyone currently enrolled in, or previously enrolled in, a nursing program outside CUNY is not eligible for this program.');
+      body.push('Anyone currently enrolled in a nursing program other than a CUNY Associate Degree (AAS) program is not eligible for this program. That includes a CUNY bachelor\'s (BSN) program, a private school, or a school outside NYC.');
     } else {
       // Score
       let score = 0;
