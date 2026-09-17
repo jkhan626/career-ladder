@@ -75,4 +75,4 @@ Sept–Dec 31, 2026 attend + apply (APPLICATION DEADLINE: December 31, 2026 - la
 Don't email documents (everything uploads inside the application) · No screenshots/phone photos, PDFs only · Don't order transcripts to Jamal's email · Don't skip the supervisor letter · Don't apply to both programs · Don't submit late (closes Dec 31, 2026).
 
 ## Contact
-Jamal Khan, Director, Behavioral Health Workforce Programs · khanj6@nychhc.org · 929-736-3655
+Questions? Email Jamal Khan, Director, Behavioral Health Workforce Programs, at khanj6@nychhc.org.
