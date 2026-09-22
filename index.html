@@ -330,6 +330,7 @@
 
   /* Schools table (desktop) / cards (mobile) */
   .schools-table-wrap { overflow-x: auto; }
+  .prereq-table-wrap { overflow-x: auto; margin-top: 10px; }
   table.schools {
     width: 100%;
     border-collapse: collapse;
@@ -759,9 +760,21 @@
   <details class="section" id="prerequisites" open>
     <summary>Prerequisites <span class="chevron">&#9656;</span></summary>
     <div class="section-body">
-      <p>10 prerequisite courses, required at every campus:</p>
-      <ul class="checklist" id="prereq-checklist"></ul>
+      <p>Required at every CUNY nursing school:</p>
+      <ul class="checklist" id="prereq-checklist-core"></ul>
+      <p>Depending on the school, you may also need:</p>
+      <ul class="checklist" id="prereq-checklist-other"></ul>
+      <h3>Prerequisites by school</h3>
+      <div class="prereq-table-wrap">
+        <table class="schools" id="prereq-table">
+          <thead>
+            <tr><th>School</th><th>Prerequisites before nursing starts</th></tr>
+          </thead>
+          <tbody id="prereq-tbody"></tbody>
+        </table>
+      </div>
       <div class="note-box">
+        Requirements change. Check the school's nursing page before you register. Verified September 2026.<br>
         Rules: A's and B's (admission is ranked on these grades). Shelf life: A&amp;P ~7 yrs, Microbiology 5–10 yrs, Chemistry ~10 yrs, depending on campus. Regionally accredited colleges only - online course mills, bootcamps, certificate programs do not transfer.
       </div>
     </div>
@@ -820,7 +833,7 @@
     <div class="section-body">
       <p>What makes a strong candidate:</p>
       <ul>
-        <li>At least 5 of the 10 prerequisites done (zero done cannot make this cohort's timeline).</li>
+        <li>At least 5 prerequisites done (zero done cannot make this cohort's timeline).</li>
         <li>Mostly A's and B's (GPA below 3.5 is a long shot).</li>
         <li>Currently taking classes - one of the strongest signals.</li>
         <li>Transcript matches the application.</li>
@@ -1123,13 +1136,34 @@
   `).join('');
 
   // ================= Prerequisites =================
-  const PREREQS = [
-    "English Composition I", "English Composition II", "Statistics", "Psychology 101",
-    "Developmental Psychology", "Anatomy & Physiology I", "Anatomy & Physiology II",
-    "Microbiology", "Chemistry", "Community Health"
+  const CORE_PREREQS = [
+    "English Composition I", "Anatomy & Physiology I", "Intro to Psychology",
+    "Anatomy & Physiology II", "Microbiology"
   ];
-  document.getElementById('prereq-checklist').innerHTML = PREREQS.map((p, i) => `
+  const OTHER_PREREQS = [
+    "English Composition II", "Chemistry", "Statistics or another math",
+    "Developmental Psychology", "Sociology", "Nutrition", "Speech/Communication"
+  ];
+  document.getElementById('prereq-checklist-core').innerHTML = CORE_PREREQS.map((p, i) => `
     <li><span class="box" aria-hidden="true"></span>${i + 1}. ${p}</li>
+  `).join('');
+  document.getElementById('prereq-checklist-other').innerHTML = OTHER_PREREQS.map((p, i) => `
+    <li><span class="box" aria-hidden="true"></span>${i + 1}. ${p}</li>
+  `).join('');
+
+  const PREREQS_BY_SCHOOL = [
+    { name: "BMCC", before: "English Comp I, A&amp;P I, Chemistry, Intro Psychology, Health Sciences Math" },
+    { name: "Bronx Community College", before: "English Comp I, A&amp;P I, Intro Psychology, Interpersonal Communication, Pharmacology Computations" },
+    { name: "Hostos", before: "English Comp I &amp; II, Statistics, A&amp;P I &amp; II, Microbiology, Chemistry, Intro Psychology, Developmental Psychology, Sociology, Nutrition" },
+    { name: "Kingsborough", before: "English Comp I, Intro Psychology, A&amp;P I, then a Chemistry/Physics course (confirm with school)" },
+    { name: "LaGuardia", before: "English Comp I, Chemistry, Intro Psychology, A&amp;P I &amp; II" },
+    { name: "Medgar Evers", before: "English Comp I, Intro Psychology, Chemistry, A&amp;P I, Algebra &amp; Trig Math" },
+    { name: "City Tech", before: "English Comp I, Intro Psychology, A&amp;P I, Quantitative Reasoning Math" },
+    { name: "Queensborough", before: "English Comp I, Intro Psychology, A&amp;P I, College Algebra or Statistics" },
+    { name: "College of Staten Island", before: "English Comp I, Intro Psychology, A&amp;P I, Ethics or Sociology" }
+  ];
+  document.getElementById('prereq-tbody').innerHTML = PREREQS_BY_SCHOOL.map(s => `
+    <tr><td>${s.name}</td><td>${s.before}</td></tr>
   `).join('');
 
   // ================= FAQ =================
@@ -1139,10 +1173,11 @@
     ["I'm already in a nursing program. Am I eligible?", "If you are currently enrolled in a CUNY Associate Degree (AAS) nursing program, you may qualify for our fast track. Email Jamal at khanj6@nychhc.org with your school and expected graduation. If you are enrolled in any other nursing program, including a CUNY bachelor's (BSN) program, a private school, or a school outside NYC, you cannot switch into the Career Ladder."],
     ["Does the program pay for private schools or bachelor's programs?", "No. The program pays for CUNY Associate Degree (AAS) in Nursing programs only."],
     ["Is acceptance into a CUNY nursing program guaranteed?", "No. Being selected for the Career Ladder pays for school, but CUNY nursing admission is competitive and decided by each college based on your prerequisite grades and entrance exam score. That is why strong grades matter so much: mostly A's and B's is the realistic bar. We help you pick the campus where your record is most competitive."],
-      ["Do I need all 10 prerequisites before applying?", "No, but the more you have done, the stronger your application. At least 5 of the 10 is what makes a strong candidate; zero done means you cannot make this cohort's timeline - start a prerequisite this semester."],
+      ["Do I need all the prerequisites before applying?", "No, but the more you have done, the stronger your application. At least 5 done with mostly A's and B's is what makes a strong candidate; zero done means you cannot make this cohort's timeline. Start a prerequisite this semester."],
+    ["Are the prerequisites the same at every school?", "Every CUNY nursing school requires English Composition I, Anatomy & Physiology I, and Intro to Psychology before nursing starts, plus A&P II and Microbiology in the degree. Beyond that, it depends on the school - you may also need English Composition II, Chemistry, Statistics or another math, Developmental Psychology, Sociology, or Nutrition. See the per-school list above."],
     ["How old can my prerequisite courses be?", "Science courses expire. Microbiology counts for 5 years, Anatomy & Physiology for 7 years, and Chemistry for 10 years. Older courses need to be retaken."],
     ["I got a C in a prerequisite. What should I do?", "Retake it if your school allows. CUNY nursing admission is competitive, so aim for mostly A's and B's and an overall GPA of 3.5 or higher."],
-    ["I already have a college degree. Does that help?", "The degree itself does not matter. Only the 10 prerequisites count, and your CUNY college decides which past courses transfer."],
+    ["I already have a college degree. Does that help?", "The degree itself does not matter. Only the prerequisites your CUNY college requires count, and the college decides which past courses transfer."],
     ["Which school should I choose?", "Pick your school before booking an entrance exam - the wrong exam does not transfer between schools. We help match your transcript, grades, and schedule to the right of the 9 CUNY AAS Nursing campuses."],
     ["Which entrance exam do I take?", "It depends on your school: BMCC uses HESI A2; Bronx CC, Hostos, Kingsborough, LaGuardia, and City Tech use TEAS; Medgar Evers uses NLN PAX; Queensborough uses NLN NEX. Confirm with College of Staten Island directly. Choose your school first, then the exam."],
     ["I failed the nursing entrance exam. Can I retake it?", "Each school sets its own retake rules. Check with the school before you book another exam."],
@@ -1219,7 +1254,7 @@
     },
     {
       key: 'prereqCount',
-      question: 'How many of the 10 prerequisites have you completed with an A or B?',
+      question: 'How many prerequisites for your chosen CUNY school have you completed with an A or B?',
       options: ['0', '1–4', '5+']
     },
     {
