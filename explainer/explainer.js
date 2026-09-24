@@ -17,7 +17,7 @@
   var script = document.currentScript;
   var BASE = script && script.src ? script.src.replace(/[^\/]*$/, '') : 'explainer/';
   var MOUNT_ID = 'cl-explainer';
-  var VERSION = '5';
+  var VERSION = '7';
   var END_HOLD = 3.6;          // seconds of end card after the narration finishes
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -131,6 +131,7 @@
   // ---------------------------------------------------------------------------
   var ctx; // main 2D context (logical 1280x720 space)
   var PAT = null;
+  var QR = new Image(); QR.src = BASE + 'qr.png';
 
   function subdivide(pts, closed, step) {
     var out = [], n = pts.length, segs = closed ? n : n - 1;
@@ -379,8 +380,8 @@
     // rails
     var pr = eOutCubic(clamp(p * 1.4, 0, 1));
     var top = yb - h * pr;
-    paper(torn(id + 'rl', [[x - w / 2 - 12, top], [x - w / 2 + 6, top], [x - w / 2 + 6, yb], [x - w / 2 - 12, yb]], 1.5, 12), col || PAL.mustard, { blur: 7 });
-    paper(torn(id + 'rr', [[x + w / 2 - 6, top], [x + w / 2 + 12, top], [x + w / 2 + 12, yb], [x + w / 2 - 6, yb]], 1.5, 12), col || PAL.mustard, { blur: 7 });
+    paper(torn(id + 'rl' + Math.round(top / 4), [[x - w / 2 - 12, top], [x - w / 2 + 6, top], [x - w / 2 + 6, yb], [x - w / 2 - 12, yb]], 1.5, 12), col || PAL.mustard, { blur: 7 });
+    paper(torn(id + 'rr' + Math.round(top / 4), [[x + w / 2 - 6, top], [x + w / 2 + 12, top], [x + w / 2 + 12, yb], [x + w / 2 - 6, yb]], 1.5, 12), col || PAL.mustard, { blur: 7 });
     rough([[x - w / 2 - 3, yb], [x - w / 2 - 3, top]], { w: 2.4, id: id + 'o1', color: 'rgba(60,40,20,0.6)', passes: 1 });
     rough([[x + w / 2 + 3, yb], [x + w / 2 + 3, top]], { w: 2.4, id: id + 'o2', color: 'rgba(60,40,20,0.6)', passes: 1 });
     for (var i = 0; i < rungs; i++) {
@@ -861,15 +862,22 @@
       tape(-330, -110, 100, -0.5, 'et1'); tape(330, -110, 100, 0.5, 'et2');
     });
     var ul = popS(t, s0 + 1.4, 0.55);
-    withT(850, 450, ul, 0.02, function () {
-      tornRect('endu', -300, -44, 600, 88, '#FFFEF8', {});
-      txt('tinyurl.com/hhcareerladder', 0, 14, { size: 44, font: F_HEAD, color: PAL.navy, id: 'eu' });
+    withT(760, 450, ul, 0.02, function () {
+      tornRect('endu', -250, -40, 500, 80, '#FFFEF8', {});
+      txt('tinyurl.com/hhcareerladder', 0, 13, { size: 40, font: F_HEAD, color: PAL.navy, id: 'eu' });
     });
-    withT(850, 540, popS(t, s0 + 2.0, 0.5), -0.01, function () {
-      txt('Everything you need is on this page', 0, 0, { size: 34, font: F_HAND, weight: 700, color: PAL.ink, id: 'ep', reveal: prog(t, s0 + 2.0, s0 + 2.9) });
+    withT(760, 536, popS(t, s0 + 2.0, 0.5), -0.01, function () {
+      txt('Everything you need is on this page', 0, 0, { size: 32, font: F_HAND, weight: 700, color: PAL.ink, id: 'ep', reveal: prog(t, s0 + 2.0, s0 + 2.9) });
     });
-    withT(850, 594, popS(t, s0 + 2.6, 0.5), 0, function () {
-      txt('Applications close December 31, 2026', 0, 0, { size: 30, font: F_HAND, weight: 700, color: PAL.red, id: 'ec' });
+    withT(760, 584, popS(t, s0 + 2.6, 0.5), 0, function () {
+      txt('Applications close December 31, 2026', 0, 0, { size: 29, font: F_HAND, weight: 700, color: PAL.red, id: 'ec' });
+    });
+    // QR code card
+    withT(1112, 492, popS(t, s0 + 1.7, 0.6), 0.05, function () {
+      paper(torn('qrc', rectPts(-98, -108, 196, 226), 2.2), '#FFFFFF', { blur: 12 });
+      if (QR.complete && QR.naturalWidth) { ctx.save(); ctx.imageSmoothingEnabled = false; ctx.drawImage(QR, -80, -92, 160, 160); ctx.restore(); }
+      txt('scan me!', 0, 100, { size: 30, font: F_HEAD, color: PAL.coral, id: 'scan' });
+      tape(0, -106, 80, -0.08, 'qrt');
     });
   }
 
@@ -1009,6 +1017,9 @@
   function audioInit() {
     if (AC) return;
     var C = window.AudioContext || window.webkitAudioContext; AC = new C();
+    buildGraph();
+  }
+  function buildGraph() {
     master = AC.createGain(); master.gain.value = 0.9;
     var comp = AC.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 3;
     master.connect(comp); comp.connect(AC.destination);
@@ -1128,7 +1139,13 @@
     var start = AC.currentTime + 0.08;
     T0 = start - offset;
     if (voiceBuf && offset < voiceBuf.duration) { voiceSrc = AC.createBufferSource(); voiceSrc.buffer = voiceBuf; voiceSrc.connect(voiceBus); voiceSrc.start(start, offset); }
-    // music level: gentle intro swell, sits low under narration, swells for the end card
+    musicLevels(offset, start);
+    nextStep = Math.max(0, Math.ceil(offset / STEP));
+    cueIdx = 0; while (cueIdx < CUES.length && CUES[cueIdx].t < offset) cueIdx++;
+    schedTimer = setInterval(scheduler, 40); scheduler();
+  }
+  // music level: gentle intro swell, sits low under narration, swells for the end card
+  function musicLevels(offset, start) {
     var mg = musicBus.gain; mg.cancelScheduledValues(0);
     var narrEnd = NARR ? L('end').end : DUR - END_HOLD;
     function mv(t) { return t < 0.4 ? 0.0001 : t < narrEnd + 0.2 ? 0.34 : 0.62; }
@@ -1136,9 +1153,6 @@
     if (offset < 1.2) mg.linearRampToValueAtTime(0.34, T0 + 1.2);
     if (offset < narrEnd + 0.2) { mg.setValueAtTime(0.34, T0 + narrEnd); mg.linearRampToValueAtTime(0.62, T0 + narrEnd + 0.8); }
     mg.setValueAtTime(0.62, T0 + DUR - 0.8); mg.linearRampToValueAtTime(0.0001, T0 + DUR + 0.6);
-    nextStep = Math.max(0, Math.ceil(offset / STEP));
-    cueIdx = 0; while (cueIdx < CUES.length && CUES[cueIdx].t < offset) cueIdx++;
-    schedTimer = setInterval(scheduler, 40); scheduler();
   }
   function audioStop() {
     if (unlockEl && !playing) { try { unlockEl.pause(); } catch (e) { } }
@@ -1334,6 +1348,37 @@
       decoded.then(function () { origPlay(); }, function () { origPlay(); });
     };
   }
+  // Offline export helpers: frame-by-frame video + full audio mix
+  window.__clxExport = {
+    duration: function () { return DUR; },
+    frame: function (t, width) {
+      var cw = width || 1920; canvas.width = cw; canvas.height = Math.round(cw * 9 / 16); SCALE = cw / W;
+      showCaptions = true; POSTER = false; freezeT = t; ui.bar.style.display = 'none'; ui.big.style.display = 'none';
+      render(t); return canvas.toDataURL('image/jpeg', 0.93);
+    },
+    audio: function () {
+      var sr = 48000, off = new OfflineAudioContext(2, Math.ceil(sr * (DUR + 0.8)), sr);
+      var saved = [AC, master, musicBus, sfxBus, voiceBus, noiseBuf, T0];
+      AC = off; buildGraph(); T0 = 0;
+      return fetch(BASE + 'narration.mp3?v=' + VERSION).then(function (r) { return r.arrayBuffer(); })
+        .then(function (ab) { return new Promise(function (res, rej) { off.decodeAudioData(ab, res, rej); }); })
+        .then(function (vb) {
+          var s = off.createBufferSource(); s.buffer = vb; s.connect(voiceBus); s.start(0);
+          musicLevels(0, 0);
+          for (var st = 0; st * STEP < DUR; st++) scheduleMusic(st, st * STEP);
+          CUES.forEach(function (c) { playCue(c, Math.max(0, c.t)); });
+          return off.startRendering();
+        }).then(function (buf) {
+          AC = saved[0]; master = saved[1]; musicBus = saved[2]; sfxBus = saved[3]; voiceBus = saved[4]; noiseBuf = saved[5]; T0 = saved[6];
+          var L0 = buf.getChannelData(0), R0 = buf.getChannelData(1), n = L0.length, out = new Int16Array(n * 2);
+          for (var i = 0; i < n; i++) { out[2 * i] = Math.max(-1, Math.min(1, L0[i])) * 32767; out[2 * i + 1] = Math.max(-1, Math.min(1, R0[i])) * 32767; }
+          var bytes = new Uint8Array(out.buffer), chunks = [], CH = 0x8000;
+          for (var k = 0; k < bytes.length; k += CH) chunks.push(String.fromCharCode.apply(null, bytes.subarray(k, k + CH)));
+          window.__clxPCM = btoa(chunks.join('')); return { rate: sr, channels: 2, samples: n, b64len: window.__clxPCM.length };
+        });
+    },
+    pcmChunk: function (i, size) { return window.__clxPCM.substr(i * size, size); }
+  };
   window.__clxDebug = function () { return { ac: AC && AC.state, voice: !!voiceBuf, t: now(), playing: playing, dur: DUR }; };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
