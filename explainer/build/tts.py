@@ -8,7 +8,7 @@ LINES = [
  ("what",   "With the Nursing Career Ladder, NYC Health and Hospitals pays your CUNY tuition, so you can become an R.N. while you keep working.",
             "With the Nursing Career Ladder, NYC Health + Hospitals pays your CUNY tuition, so you can become an RN while you keep working.", 0.45),
  ("tracks", "Pick your track: Behavioral Health, or Med-Surgical.", "Pick your track: Behavioral Health or Med-Surgical.", 0.35),
- ("titles", "It's for full-time P.C.A.s, P.C.T.s, P.S.H.T.s, or B.H.A.s,",
+ ("titles", "It's for full-time P C A's, P C T's, P S H T's, or B H A's,",
             "It's for full-time PCAs, PCTs, PSHTs, or BHAs,", 0.15),
  ("tenure", "with one year of service by December thirty-first, who have never been in a nursing program.",
             "with one year of service by December 31, who have never been in a nursing program.", 0.45),

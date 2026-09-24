@@ -17,6 +17,7 @@
   var script = document.currentScript;
   var BASE = script && script.src ? script.src.replace(/[^\/]*$/, '') : 'explainer/';
   var MOUNT_ID = 'cl-explainer';
+  var VERSION = '3';
   var END_HOLD = 3.6;          // seconds of end card after the narration finishes
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -65,9 +66,15 @@
   function L(id) { return LINES[id] || { start: 0, end: 0, words: [] }; }
   // Time of the nth occurrence of a word (case-insensitive prefix match) within a line
   function WT(id, word, nth) {
-    var line = L(id), n = nth || 1, w = word.toLowerCase();
-    for (var i = 0; i < line.words.length; i++) {
-      if (line.words[i].w.toLowerCase().replace(/[^a-z0-9'.-]/g, '').indexOf(w) === 0) { n--; if (!n) return line.words[i].t; }
+    var line = L(id), n = nth || 1, w = word.toLowerCase(), ws = line.words;
+    var norm = function (s) { return s.toLowerCase().replace(/[^a-z0-9'.-]/g, ''); };
+    for (var i = 0; i < ws.length; i++) {
+      if (norm(ws[i].w).indexOf(w) === 0) { n--; if (!n) return ws[i].t; continue; }
+      if (w.indexOf('.') > 0) { // spelled-out acronym: letters as separate tokens
+        var letters = w.split('.').filter(Boolean), ok = true;
+        for (var k = 0; k < letters.length; k++) { var tok = ws[i + k] ? norm(ws[i + k].w).replace(/'s$|s$/, '') : ''; if (tok !== letters[k]) { ok = false; break; } }
+        if (ok) { n--; if (!n) return ws[i].t; }
+      }
     }
     return line.start;
   }
@@ -983,6 +990,22 @@
   ];
   var MELODY = [76, null, 79, null, 77, 76, null, 74, 72, null, 74, 76, null, null, 79, null]; // 2-bar motif (glockenspiel)
   function mtof(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+  var unlockEl = null;
+  function iosUnlock() {
+    try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) { }
+    try {
+      if (!unlockEl) {
+        // tiny silent WAV played through an <audio> element puts iOS into "playback" mode
+        var sr = 8000, n = sr / 2, buf = new ArrayBuffer(44 + n * 2), v = new DataView(buf);
+        var ws = function (o, s) { for (var i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+        ws(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); ws(8, 'WAVE'); ws(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+        v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); ws(36, 'data'); v.setUint32(40, n * 2, true);
+        unlockEl = document.createElement('audio'); unlockEl.setAttribute('playsinline', ''); unlockEl.loop = true; unlockEl.preload = 'auto';
+        unlockEl.src = URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+      }
+      var pr = unlockEl.play(); if (pr && pr.catch) pr.catch(function () { });
+    } catch (e) { }
+  }
   function audioInit() {
     if (AC) return;
     var C = window.AudioContext || window.webkitAudioContext; AC = new C();
@@ -1100,7 +1123,7 @@
   }
   function audioStart(offset) {
     audioInit();
-    if (AC.state === 'suspended') AC.resume();
+    if (AC.state !== 'running') { try { AC.resume(); } catch (e) { } }
     audioStop();
     var start = AC.currentTime + 0.08;
     T0 = start - offset;
@@ -1118,6 +1141,7 @@
     schedTimer = setInterval(scheduler, 40); scheduler();
   }
   function audioStop() {
+    if (unlockEl && !playing) { try { unlockEl.pause(); } catch (e) { } }
     if (schedTimer) { clearInterval(schedTimer); schedTimer = null; }
     if (voiceSrc) { try { voiceSrc.stop(); } catch (e) { } voiceSrc = null; }
     if (musicBus) { musicBus.gain.cancelScheduledValues(0); musicBus.gain.setValueAtTime(0.0001, AC.currentTime); }
@@ -1283,8 +1307,8 @@
     build(mount);
     ctx = canvas.getContext('2d');
     buildTextures(); PAT = ctx.createPattern(TEX.fibre, 'repeat');
-    var jsonP = fetch(BASE + 'narration.json').then(function (r) { return r.json(); });
-    var audP = fetch(BASE + 'narration.mp3').then(function (r) { return r.arrayBuffer(); });
+    var jsonP = fetch(BASE + 'narration.json?v=' + VERSION).then(function (r) { return r.json(); });
+    var audP = fetch(BASE + 'narration.mp3?v=' + VERSION).then(function (r) { return r.arrayBuffer(); });
     Promise.all([jsonP, loadFonts()]).then(function (res) {
       NARR = res[0]; NARR.lines.forEach(function (l) { LINES[l.id] = l; });
       DUR = L('end').end + END_HOLD;
@@ -1300,7 +1324,9 @@
     var decoded = null;
     var origPlay = play;
     play = function () {
+      iosUnlock();
       audioInit();
+      if (AC.state !== 'running') { try { AC.resume(); } catch (e) { } }
       if (voiceBuf) return origPlay();
       if (!decoded) decoded = audP.then(function (ab) { return new Promise(function (res, rej) { AC.decodeAudioData(ab, res, rej); }); }).then(function (b) { voiceBuf = b; });
       if (AC.state === 'suspended') AC.resume();
