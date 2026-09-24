@@ -17,7 +17,7 @@
   var script = document.currentScript;
   var BASE = script && script.src ? script.src.replace(/[^\/]*$/, '') : 'explainer/';
   var MOUNT_ID = 'cl-explainer';
-  var VERSION = '4';
+  var VERSION = '5';
   var END_HOLD = 3.6;          // seconds of end card after the narration finishes
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -684,7 +684,7 @@
         tornRect('mscard', -210, -170, 420, 340, PAL.teal, { amt: 3.5 });
         tape(0, -170, 110, -0.03, 'mst');
         medIcon(0, -40, 1.05, 'msic');
-        txt('Med-Surgical', 0, 112, { size: 52, font: F_HEAD, color: '#fff', id: 'ms1' });
+        txt('Med-Surg', 0, 112, { size: 56, font: F_HEAD, color: '#fff', id: 'ms1' });
       });
     });
     // "or" in the middle + note
@@ -712,7 +712,7 @@
         withT(530, 256, popS(t, WT('titles', 'p.s.h.t') - 0.05, 0.45), -0.04, function () { badge('PSHT', 0, 0, 0.8, PAL.coral, 'bpsht'); });
         withT(690, 256, popS(t, WT('titles', 'b.h.a') - 0.05, 0.45), 0.03, function () { badge('BHA', 0, 0, 0.8, PAL.coral, 'bbha'); });
         txt('or', 250, 270, { size: 44, font: F_HAND, weight: 700, color: PAL.ink, align: 'left', id: 'orr', reveal: prog(t, WT('titles', 'or'), WT('titles', 'or') + 0.3) });
-        txt('Med-Surgical or', 770, 162, { size: 30, font: F_HAND, color: PAL.tealD, align: 'left', id: 'bt', weight: 700, reveal: prog(t, WT('titles', 'p.c.t') + 0.3, WT('titles', 'p.c.t') + 0.9) });
+        txt('Med-Surg or', 770, 162, { size: 30, font: F_HAND, color: PAL.tealD, align: 'left', id: 'bt', weight: 700, reveal: prog(t, WT('titles', 'p.c.t') + 0.3, WT('titles', 'p.c.t') + 0.9) });
         txt('Behavioral Health', 770, 194, { size: 30, font: F_HAND, color: PAL.tealD, align: 'left', id: 'bt2', weight: 700, reveal: prog(t, WT('titles', 'p.c.t') + 0.5, WT('titles', 'p.c.t') + 1.1) });
         txt('Behavioral Health', 790, 268, { size: 30, font: F_HAND, weight: 700, color: PAL.red, align: 'left', id: 'fbh', reveal: prog(t, WT('titles', 'b.h.a') + 0.2, WT('titles', 'b.h.a') + 0.8) });
         check(215, 166, 1, prog(t, WT('titles', 'p.c.t') + 0.2, WT('titles', 'p.c.t') + 0.5), PAL.teal, 'c1');
