@@ -17,7 +17,7 @@
   var script = document.currentScript;
   var BASE = script && script.src ? script.src.replace(/[^\/]*$/, '') : 'explainer/';
   var MOUNT_ID = 'cl-explainer';
-  var VERSION = '3';
+  var VERSION = '4';
   var END_HOLD = 3.6;          // seconds of end card after the narration finishes
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -72,7 +72,7 @@
       if (norm(ws[i].w).indexOf(w) === 0) { n--; if (!n) return ws[i].t; continue; }
       if (w.indexOf('.') > 0) { // spelled-out acronym: letters as separate tokens
         var letters = w.split('.').filter(Boolean), ok = true;
-        for (var k = 0; k < letters.length; k++) { var tok = ws[i + k] ? norm(ws[i + k].w).replace(/'s$|s$/, '') : ''; if (tok !== letters[k]) { ok = false; break; } }
+        for (var k = 0; k < letters.length; k++) { var tok = ws[i + k] ? norm(ws[i + k].w) : ''; if (tok.length > 1) tok = tok.replace(/'s$|s$/, ''); if (tok !== letters[k]) { ok = false; break; } }
         if (ok) { n--; if (!n) return ws[i].t; }
       }
     }
