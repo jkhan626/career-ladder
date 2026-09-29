@@ -5,8 +5,8 @@ Source: Jamal's standard inquiry reply, 2026-08. Keep wording; tighten only for 
 The Nursing Career Ladder pays for NYC Health + Hospitals support staff to become Registered Nurses. NYC H+H pays your tuition and fees directly to CUNY and reimburses your related costs, so you can earn an RN without taking on the financial burden yourself. You keep your full-time NYC H+H job and your paycheck the entire time you are in school.
 
 Two tracks, separate application cycles:
-- Behavioral Health Nursing Career Ladder (Cohort 3): you become an RN in a behavioral health setting. Open to PCAs, PCTs, BHAs, and PSHTs.
-- Med-Surg Nursing Career Ladder (Cohort 2): you become an RN in a med-surg setting. Open to PCAs and PCTs.
+- Behavioral Health Nursing Career Ladder (Cohort 3): you become an RN in behavioral health. Open to PCAs, PCTs, BHAs, and PSHTs.
+- Med-Surg Nursing Career Ladder (Cohort 2): you become an RN in med-surg. Open to PCAs and PCTs.
 
 Apply to the one that matches where you want to work as an RN after graduation. Your current unit does not matter: you do not need to work in a behavioral health or med-surg area today. APPLY TO ONE PROGRAM ONLY. There are plenty of seats in each program; applying twice does not improve your chances.
 
@@ -30,13 +30,13 @@ Not covered: a laptop or tablet, transportation, courses taken outside CUNY, and
 | BMCC | HESI A2 | Evening/weekend option | Fall & Spring |
 | Bronx Community College | TEAS | Day | Fall & Spring |
 | Hostos | TEAS | Evening cohort (spring start) | Fall (day) / Spring (evening) |
-| Kingsborough | TEAS | Evening/weekend option | Fall & Spring |
+| Kingsborough | TEAS | Confirm with school | Fall & Spring |
 | LaGuardia | TEAS | Day | Fall & Spring |
 | Medgar Evers | NLN PAX | Evening/weekend hours (confirm) | Fall (confirm with school) |
 | City Tech | TEAS | Day | Fall & Spring |
-| Queensborough | NLN NEX | Evening/weekend option | Fall & Spring (evening section: fall only) |
+| Queensborough | NLN NEX | Evening/weekend option | Fall & Spring (evening section starts in fall) |
 | College of Staten Island | TEAS | Day | Fall & Spring |
-Notes: Pick your school BEFORE booking an entrance exam - the wrong exam does not transfer. Most campuses start nursing classes in both fall and spring, but Hostos starts its day program only in the fall and its evening program only in the spring, and Medgar Evers starts in the fall (confirm with the school), so missing a deadline there can cost a year. We help match your transcript, grades, and schedule to the right campus.
+Notes: Pick your school BEFORE booking an entrance exam - the wrong exam does not transfer. Most campuses start nursing classes in both fall and spring, but Hostos starts its day program only in the fall and its evening program only in the spring, and Medgar Evers starts in the fall (confirm with the school), so missing a deadline there can cost a year. You compare your own transcript against each school's list on this page, and the CUNY college decides which past courses transfer.
 
 ## Prerequisite courses (verified September 2026; they vary by school)
 Required at every CUNY nursing school: English Composition I, Anatomy & Physiology I, Intro to Psychology (before nursing starts), plus Anatomy & Physiology II and Microbiology in the degree.
@@ -54,7 +54,7 @@ Sept–Dec 31, 2026 attend + apply (APPLICATION DEADLINE: December 31, 2026 - la
 
 ## What you are committing to
 - Stay full time at NYC H+H throughout (no part time / per diem).
-- Classes are primarily in person; you adjust your work schedule around school (we help).
+- All classes are in person; you adjust your work schedule around school.
 - After licensure: 3 years as an RN at NYC H+H in your track. Leave early → repayment tiers (full / two-thirds / one-third by time served).
 - If you do not finish nursing school you still owe the service obligation in your current title. Failed courses can be retaken at your own expense if the school allows.
 

@@ -17,7 +17,7 @@
   var script = document.currentScript;
   var BASE = script && script.src ? script.src.replace(/[^\/]*$/, '') : 'explainer/';
   var MOUNT_ID = 'cl-explainer';
-  var VERSION = '7';
+  var VERSION = '8';
   var END_HOLD = 3.6;          // seconds of end card after the narration finishes
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -726,10 +726,11 @@
         txt('by December 31, 2026', 380, 404, { size: 36, font: F_HAND, weight: 700, color: PAL.navy, align: 'left', id: 'yr2', reveal: prog(t, WT('tenure', 'december'), WT('tenure', 'december') + 0.7) });
         check(215, 372, 1, prog(t, WT('tenure', 'thirty'), WT('tenure', 'thirty') + 0.3), PAL.teal, 'c3');
 
-        // Row 4: never been in a nursing program
-        var r4 = WT('tenure', 'who') - 0.05;
+        // Row 4: no past enrollment in a nursing program (current CUNY AAS students: fast track)
+        var r4 = WT('tenure', 'no') - 0.05;
         txt('New to nursing school', 380, 486, { size: 46, font: F_HAND, weight: 700, color: PAL.ink, align: 'left', id: 'nn', reveal: prog(t, r4, r4 + 0.7) });
-        txt('never enrolled in a nursing program before', 380, 526, { size: 30, font: F_HAND, weight: 700, color: 'rgba(30,35,64,0.75)', align: 'left', id: 'nn2', reveal: prog(t, WT('tenure', 'never'), WT('tenure', 'program') + 0.3) });
+        txt('no past enrollment in a nursing program', 380, 526, { size: 30, font: F_HAND, weight: 700, color: 'rgba(30,35,64,0.75)', align: 'left', id: 'nn2', reveal: prog(t, WT('tenure', 'past'), WT('tenure', 'program') + 0.3) });
+        txt('In a CUNY AAS program now? Ask about the fast track', 380, 564, { size: 28, font: F_HAND, weight: 700, color: PAL.tealD, align: 'left', id: 'nn3', reveal: prog(t, WT('tenure', 'cuny'), WT('tenure', 'track') + 0.3) });
         withT(300, 490, popS(t, r4, 0.5), 0.05, function () { gradCap(0, 0, 0.55, 'cap2'); sparkle(46, -30, 0.6, t, 'nsp'); });
         check(215, 492, 1, prog(t, WT('tenure', 'program'), WT('tenure', 'program') + 0.35), PAL.teal, 'c4');
       });
