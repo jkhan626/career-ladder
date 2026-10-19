@@ -2,7 +2,7 @@
 Source: Jamal's standard inquiry reply, 2026-08. Keep wording; tighten only for web.
 
 ## What the program is
-The Nursing Career Ladder pays for NYC Health + Hospitals support staff to become Registered Nurses. NYC H+H pays your tuition and fees directly to CUNY and reimburses your related costs, so you can earn an RN without taking on the financial burden yourself. You keep your full-time NYC H+H job and your paycheck the entire time you are in school.
+The Nursing Career Ladder pays for NYC Health + Hospitals support staff to become Registered Nurses. NYC H+H pays your tuition and fees directly to CUNY and reimburses your related costs, so you can earn an RN without taking on the financial burden yourself. You keep working your full-time NYC H+H job, and keep getting your regular paycheck, the entire time you are in school. This is not a work release: you take your classes around your work schedule.
 
 Two tracks, separate application cycles:
 - Behavioral Health Nursing Career Ladder (Cohort 3): you become an RN in behavioral health. Open to PCAs, PCTs, BHAs, and PSHTs.
