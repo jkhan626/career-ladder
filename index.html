@@ -708,6 +708,7 @@
       <li>Register with an email you check (a personal email works best). Your join link comes in the Webex confirmation email, so check your spam or junk folder too.</li>
       <li>Can't find it? Register again and double-check your email address. The confirmation arrives within a few minutes.</li>
       <li>Join a few minutes early, from a computer or the free Webex app on your phone.</li>
+      <li>Please join on time: entry to virtual sessions closes 5 minutes after the start time, and late joiners cannot receive the application.</li>
       <li>Join through the link with your name and email, not by dialing in, so your attendance is recorded and you get the application.</li>
       <li>Jamal is presenting during the session and can't answer calls or emails once it starts.</li>
     </ul>
@@ -820,6 +821,7 @@
         <li>Receive the application by email within a few days.</li>
         <li>Submit by December 31, 2026 with transcripts and letter of recommendation uploaded inside it.</li>
       </ol>
+      <p>Please join on time: entry to virtual sessions closes 5 minutes after the start time, and late joiners cannot receive the application.</p>
       <p><strong>Virtual sessions:</strong></p>
       <ul id="virtual-sessions-list" style="margin: 8px 0 12px; padding-left: 20px; line-height: 1.9;"></ul>
       <p>November is the last session; there is no December session.</p>
@@ -1093,15 +1095,24 @@
     bh: [{ date: "2026-09-17", label: "Thu 9/17 6pm", long: "Thu Sep 17, 6:00 PM" }, { date: "2026-10-19", label: "Mon 10/19 12pm", long: "Mon Oct 19, 12:00 PM" }, { date: "2026-11-17", label: "Tue 11/17 2pm", long: "Tue Nov 17, 2:00 PM" }],
     ms: [{ date: "2026-09-16", label: "Wed 9/16 1pm", long: "Wed Sep 16, 1:00 PM" }, { date: "2026-10-21", label: "Wed 10/21 6pm", long: "Wed Oct 21, 6:00 PM" }, { date: "2026-11-18", label: "Wed 11/18 7pm", long: "Wed Nov 18, 7:00 PM" }]
   };
+  // Entry closes 5 minutes after the start time (computed from the "long" string, e.g. "Wed Nov 18, 7:00 PM" -> "7:05 PM").
+  function entryCloses(s) {
+    const m = s.long.match(/(\d+):(\d+) (AM|PM)$/);
+    if (!m) return '';
+    const total = parseInt(m[1], 10) * 60 + parseInt(m[2], 10) + 5;
+    const h = Math.floor(total / 60), min = total % 60;
+    return `${h}:${String(min).padStart(2, '0')} ${m[3]}`;
+  }
   function upcomingVirtual(track) { return VIRTUAL_SESSIONS[track].filter(s => s.date >= TODAY_NY); }
   // "How to apply" list, rendered from the same dated data so past dates drop off automatically.
   document.getElementById('virtual-sessions-list').innerHTML = [['bh', 'Behavioral Health'], ['ms', 'Med-Surg']].map(([k, name]) => {
-    const up = upcomingVirtual(k).map(s => s.long);
+    const up = upcomingVirtual(k).map(s => `${s.long} (entry closes ${entryCloses(s)})`);
     return `<li><strong>${name}:</strong> ${up.length ? up.join(' &middot; ') : 'no more virtual sessions this cycle'}</li>`;
   }).join('');
   function virtualSubLine(track) {
-    const upcoming = upcomingVirtual(track).map(s => s.label);
-    return upcoming.length ? upcoming.join(' &middot; ') : 'No more virtual sessions this cycle';
+    const list = upcomingVirtual(track);
+    const upcoming = list.map(s => s.label);
+    return upcoming.length ? upcoming.join(' &middot; ') + ' &middot; Entry closes 5 minutes after start (' + list.map(s => entryCloses(s)).join(' / ') + ')' : 'No more virtual sessions this cycle';
   }
 
   const buttonsHtml = `
@@ -1254,6 +1265,7 @@
     ["What if I don't finish?", "If you do not finish nursing school, you still owe the service obligation in your current title. Failed courses can be retaken at your own expense if the school allows."],
     ["What do I owe after I'm licensed?", "You commit to 3 years as an RN at NYC H+H in your track. If you leave early, repayment tiers apply - full, two-thirds, or one-third, depending on time served."],
     ["How do I get the application?", "The application is not public - you get it only by attending a live info session, in person at your facility or virtual on Webex. After each session we pull attendance and email the application to everyone who attended, usually within a few days."],
+    ["What if I join a virtual session late?", "Please join on time: entry to virtual sessions closes 5 minutes after the start time (for example, by 2:05 PM for a 2:00 PM session), and late joiners cannot receive the application. The November 17 and 18 sessions are the final sessions of this cycle."],
     ["What if I miss the November session?", "November is the last session - there is no December session. Register for one of the remaining sessions before then; applications close December 31, 2026 regardless."],
     ["Where do I send my transcripts?", "Nowhere by email - don't send documents to Jamal or anyone else directly. Order official transcripts to your own email as PDFs, merge them into one PDF (free tool: <a href='https://www.adobe.com/acrobat/online/merge-pdf.html' target='_blank' rel='noopener'>Adobe Merge PDF</a>), and upload that PDF inside the application itself."],
     ["How do I get my transcripts and put them into one PDF?", "The application asks you to upload transcripts from every college you have attended, combined into one PDF. Start gathering them now, since some schools take a few days.<ul><li>CUNY schools: order your official transcript through CUNYfirst and have it sent to your own email as a PDF. If you need help, contact the registrar's office at your college.</li><li>Colleges outside CUNY: go to that college's registrar website and order your official transcript, sent to your own email as a PDF. Many schools let you order online.</li></ul>To combine several files into one PDF:<ul><li>On a computer: use <a href='https://www.adobe.com/acrobat/online/merge-pdf.html' target='_blank' rel='noopener'>Adobe's free Merge PDF tool</a> (free, no account needed), or search &quot;merge PDF&quot; online.</li><li>On an iPhone: open the Files app, select all of the files, tap the three-dot menu, and choose Create PDF.</li><li>On Android: use the Google Drive app's Scan feature, or a merge PDF tool.</li><li>Paper copy only? Scan it with your phone (Notes on iPhone, Google Drive on Android) instead of taking a photo.</li></ul>Make sure every page is clear and readable before you upload."],
