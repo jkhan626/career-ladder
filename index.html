@@ -824,7 +824,7 @@
       <p>Please join on time: entry to virtual sessions closes 5 minutes after the start time, and late joiners cannot receive the application.</p>
       <p><strong>Virtual sessions:</strong></p>
       <ul id="virtual-sessions-list" style="margin: 8px 0 12px; padding-left: 20px; line-height: 1.9;"></ul>
-      <p>November is the last session; there is no December session.</p>
+      <p>The Monday, December 7 session at 7:00 PM is the final session for both programs this cycle.</p>
     </div>
   </details>
 
@@ -947,6 +947,10 @@
   const BH_WEBEX_URL = "https://hhc.webex.com/webappng/sites/hhc/webinar/webinarSeries/register/7854dd4dedce47ea9002685d17f11119";
   const MEDSURG_WEBEX_URL = "https://hhc.webex.com/webappng/sites/hhc/webinar/webinarSeries/register/0f23be5c70e54b798955216295ed7de4";
 
+  // Final "last chance" session for BOTH programs (Webex). Registration goes through this form,
+  // which checks eligibility and sends the join link. Drops off automatically after `date`.
+  const LAST_CHANCE = { date: "2026-12-07", long: "Mon Dec 7, 7:00 PM", url: "https://nychealthandhospitals.surveymonkey.com/r/B9VTPX6" };
+
   const FACILITY_MAP = {
     bellevue: "Bellevue",
     kings: "Kings County",
@@ -1016,16 +1020,7 @@
   function renderInPersonSlot() {
     const formReady = !/PLACEHOLDER/.test(IN_PERSON_URL);
 
-    function interestCard() {
-      return `
-        <div class="action-btn">
-          <span class="btn-title">In-person info sessions at the facilities</span>
-          <span class="btn-sub">Jamal will be visiting many facilities in person this fall. Ask your nursing leadership about your hospital's date, or contact Jamal at khanj6@nychhc.org. Want to be notified when your hospital's date is set? Register your interest:</span>
-          ${formReady ? `<a class="btn-cta" href="${IN_PERSON_URL}">Register interest &rarr;</a>` : ''}
-        </div>
-      `;
-    }
-
+    // In-person season is over: no "register interest" card any more (Jamal 11/23/2026).
     if (!facilityInfo) {
       const anyScheduled = Object.values(SESSIONS).some(isUpcoming);
       if (formReady && anyScheduled) {
@@ -1036,7 +1031,7 @@
           </a>
         `;
       }
-      return interestCard();
+      return '';
     }
 
     const name = facilityInfo.name;
@@ -1046,7 +1041,7 @@
       return `
         <div class="action-btn">
           <span class="btn-title">In-person info session at ${escapeHtml(name)}</span>
-          <span class="btn-sub">The in-person session at ${escapeHtml(name)} took place on ${new Date(session.date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}. You can still attend a virtual session: register below. Questions? Email Jamal at khanj6@nychhc.org.</span>
+          <span class="btn-sub">The in-person session at ${escapeHtml(name)} took place on ${new Date(session.date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}. You can still attend the final virtual session: register above. Questions? Email Jamal at khanj6@nychhc.org.</span>
         </div>
       `;
     }
@@ -1066,7 +1061,7 @@
       `;
     }
 
-    return interestCard();
+    return '';
   }
 
   function renderScheduledSessionsList() {
@@ -1107,25 +1102,36 @@
   // "How to apply" list, rendered from the same dated data so past dates drop off automatically.
   document.getElementById('virtual-sessions-list').innerHTML = [['bh', 'Behavioral Health'], ['ms', 'Med-Surg']].map(([k, name]) => {
     const up = upcomingVirtual(k).map(s => `${s.long} (entry closes ${entryCloses(s)})`);
-    return `<li><strong>${name}:</strong> ${up.length ? up.join(' &middot; ') : 'no more virtual sessions this cycle'}</li>`;
-  }).join('');
+    return `<li><strong>${name}:</strong> ${up.length ? up.join(' &middot; ') : 'no more track-specific sessions this cycle'}</li>`;
+  }).join('') + (LAST_CHANCE.date >= TODAY_NY ? `<li><strong>Both programs (last chance):</strong> ${LAST_CHANCE.long} (entry closes ${entryCloses(LAST_CHANCE)}). <a href="${LAST_CHANCE.url}">Register here</a>.</li>` : '');
   function virtualSubLine(track) {
     const list = upcomingVirtual(track);
     const upcoming = list.map(s => s.label);
     return upcoming.length ? upcoming.join(' &middot; ') + ' &middot; Entry closes 5 minutes after start (' + list.map(s => entryCloses(s)).join(' / ') + ')' : 'No more virtual sessions this cycle';
   }
 
-  const buttonsHtml = `
-    ${renderInPersonSlot()}
+  const lastChanceUpcoming = LAST_CHANCE.date >= TODAY_NY;
+  const lastChanceHtml = lastChanceUpcoming ? `
+    <a class="action-btn" href="${LAST_CHANCE.url}">
+      <span class="btn-title">Last chance: final info session for Behavioral Health and Med-Surg (virtual)</span>
+      <span class="btn-sub">${LAST_CHANCE.long} on Webex &middot; Register here first; the form checks eligibility and sends your join link &middot; Entry closes ${entryCloses(LAST_CHANCE)}</span>
+    </a>` : '';
+  const bhVirtualHtml = upcomingVirtual('bh').length ? `
     <a class="action-btn secondary" href="${BH_WEBEX_URL}">
       <span class="btn-title">Register for a Behavioral Health info session (virtual)</span>
       <span class="btn-sub">${virtualSubLine('bh')}</span>
-    </a>
+    </a>` : '';
+  const msVirtualHtml = upcomingVirtual('ms').length ? `
     <a class="action-btn secondary" href="${MEDSURG_WEBEX_URL}">
       <span class="btn-title">Register for a Med-Surg info session (virtual)</span>
       <span class="btn-sub">${virtualSubLine('ms')}</span>
-    </a>
-  `;
+    </a>` : '';
+  const buttonsHtml = `
+    ${lastChanceHtml}
+    ${renderInPersonSlot()}
+    ${bhVirtualHtml}
+    ${msVirtualHtml}
+  ` .trim() || `<div class="action-btn"><span class="btn-title">Info sessions for this cycle are over</span><span class="btn-sub">Applications close December 31, 2026. Questions? Email Jamal at khanj6@nychhc.org.</span></div>`;
   document.getElementById('buttons').innerHTML = buttonsHtml;
   document.getElementById('scheduled-sessions').innerHTML = renderScheduledSessionsList();
 
