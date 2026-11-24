@@ -237,6 +237,45 @@
   }
   .action-btn .btn-cta:hover { background: var(--blue-tint-2); }
 
+  /* Last-chance banner at the top of the page */
+  .last-chance {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 14px;
+    padding: 18px 20px 20px;
+    margin: 0 0 18px;
+  }
+  .last-chance .lc-tag {
+    display: inline-block;
+    background: #F2C14E;
+    color: #1a1a1a;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .last-chance h2 { margin: 0 0 6px; font-size: clamp(20px, 5vw, 24px); font-weight: 800; color: var(--white); line-height: 1.25; }
+  .last-chance .lc-when { margin: 0 0 4px; font-size: 17px; font-weight: 700; color: var(--white); }
+  .last-chance .lc-note { margin: 0 0 14px; font-size: 14px; line-height: 1.55; color: var(--blue-tint-2); }
+  .last-chance .lc-btn {
+    display: block;
+    text-align: center;
+    background: #F2C14E;
+    color: #1a1a1a;
+    font-size: 19px;
+    font-weight: 800;
+    text-decoration: none;
+    padding: 15px 18px;
+    border-radius: 10px;
+    min-height: 52px;
+    transition: background 0.15s ease, transform 0.05s ease;
+  }
+  .last-chance .lc-btn:hover { background: #E8B235; }
+  .last-chance .lc-btn:active { transform: scale(0.99); }
+
   /* Scheduled in-person sessions mini-list */
   .scheduled-sessions {
     margin: 4px 0 0;
@@ -687,6 +726,7 @@
 </header>
 
 <main id="main">
+  <div id="last-chance"></div>
   <div id="cl-explainer"></div>
   <p class="eligibility">
     For full-time PCAs, PCTs, BHAs, and PSHTs with <strong>1+ year of service</strong>, from <strong>any unit or department</strong>. You do not need to work in behavioral health or med-surg now.
@@ -699,7 +739,7 @@
     <p>If you are currently enrolled in a CUNY Associate Degree (AAS) nursing program, you do not need to wait for an info session. Email <a href="mailto:khanj6@nychhc.org?subject=Fast%20track%20-%20CUNY%20AAS%20nursing%20student">khanj6@nychhc.org</a> with your school and expected graduation date so we can fast-track your application. Once you are accepted and cleared by HR, the program starts paying your CUNY tuition. You still need to be a full-time PCA, PCT, BHA, or PSHT now, with 1+ year of service at NYC H+H.</p>
   </div>
 
-  <h2 style="font-size: clamp(19px, 4.6vw, 22px); font-weight: 700; color: var(--navy); margin: 18px 0 10px;">Register for an info session</h2>
+  <h2 id="buttons-heading" style="font-size: clamp(19px, 4.6vw, 22px); font-weight: 700; color: var(--navy); margin: 18px 0 10px;">Register for an info session</h2>
   <div class="buttons" id="buttons"></div>
 
   <div class="scheduled-sessions" id="webex-tips" style="margin: 10px 0 14px;">
@@ -1111,11 +1151,17 @@
   }
 
   const lastChanceUpcoming = LAST_CHANCE.date >= TODAY_NY;
-  const lastChanceHtml = lastChanceUpcoming ? `
-    <a class="action-btn" href="${LAST_CHANCE.url}">
-      <span class="btn-title">Last chance: final info session for Behavioral Health and Med-Surg (virtual)</span>
-      <span class="btn-sub">${LAST_CHANCE.long} on Webex &middot; Register here first; the form checks eligibility and sends your join link &middot; Entry closes ${entryCloses(LAST_CHANCE)}</span>
-    </a>` : '';
+  function lastChanceBanner() {
+    return lastChanceUpcoming ? `
+    <section class="last-chance" aria-label="Last chance info session">
+      <span class="lc-tag">Last chance</span>
+      <h2>Final info session for Behavioral Health and Med-Surg</h2>
+      <p class="lc-when">${LAST_CHANCE.long} &middot; Virtual (Webex)</p>
+      <p class="lc-note">You must attend a live info session to get the application. Register first; the form checks eligibility and emails you the join link. Entry closes ${entryCloses(LAST_CHANCE)}.</p>
+      <a class="lc-btn" href="${LAST_CHANCE.url}">Register here &rarr;</a>
+    </section>` : '';
+  }
+  document.getElementById('last-chance').innerHTML = lastChanceBanner();
   const bhVirtualHtml = upcomingVirtual('bh').length ? `
     <a class="action-btn secondary" href="${BH_WEBEX_URL}">
       <span class="btn-title">Register for a Behavioral Health info session (virtual)</span>
@@ -1126,13 +1172,15 @@
       <span class="btn-title">Register for a Med-Surg info session (virtual)</span>
       <span class="btn-sub">${virtualSubLine('ms')}</span>
     </a>` : '';
-  const buttonsHtml = `
-    ${lastChanceHtml}
+  const otherButtons = `
     ${renderInPersonSlot()}
     ${bhVirtualHtml}
     ${msVirtualHtml}
-  ` .trim() || `<div class="action-btn"><span class="btn-title">Info sessions for this cycle are over</span><span class="btn-sub">Applications close December 31, 2026. Questions? Email Jamal at khanj6@nychhc.org.</span></div>`;
+  `.trim();
+  const buttonsHtml = otherButtons || (lastChanceUpcoming ? '' : `<div class="action-btn"><span class="btn-title">Info sessions for this cycle are over</span><span class="btn-sub">Applications close December 31, 2026. Questions? Email Jamal at khanj6@nychhc.org.</span></div>`);
   document.getElementById('buttons').innerHTML = buttonsHtml;
+  if (!buttonsHtml) { document.getElementById('buttons-heading').hidden = true; document.getElementById('buttons').hidden = true; }
+  if (lastChanceUpcoming) { const pill = document.getElementById('sticky-pill'); if (pill) pill.href = '#last-chance'; }
   document.getElementById('scheduled-sessions').innerHTML = renderScheduledSessionsList();
 
   // ================= Share this page =================
@@ -1177,16 +1225,11 @@
   // Buttons used inside quiz results (same slot logic, compact)
   function registerButtonsHtml() {
     return `
+      ${lastChanceBanner()}
       <div class="buttons">
         ${renderInPersonSlot()}
-        <a class="action-btn secondary" href="${BH_WEBEX_URL}">
-          <span class="btn-title">Register for a Behavioral Health info session (virtual)</span>
-          <span class="btn-sub">${virtualSubLine('bh')}</span>
-        </a>
-        <a class="action-btn secondary" href="${MEDSURG_WEBEX_URL}">
-          <span class="btn-title">Register for a Med-Surg info session (virtual)</span>
-          <span class="btn-sub">${virtualSubLine('ms')}</span>
-        </a>
+        ${bhVirtualHtml}
+        ${msVirtualHtml}
       </div>
     `;
   }
